@@ -12,46 +12,57 @@ public class ShipEntity : MonoBehaviour
     public float InclinationForce;
 
     private Rigidbody _rigidbody;
-    private BoxCollider _collider;
+    private bool _collisionDetected;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _collider = GetComponent<BoxCollider>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (_collisionDetected)
         {
-            _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce);
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            if (_rigidbody.velocity.z < 0)
+            if (Input.GetKey(KeyCode.W))
             {
-                _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce);
+                _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce);
             }
-        }
 
-        var ratio = 1f;
-        var zSpeed = Math.Abs(_rigidbody.velocity.z);
-        if (zSpeed < 10)
-        {
-            ratio = Math.Abs(zSpeed) < 0.001f ? 0 : 1 / (10f - Math.Abs(_rigidbody.velocity.z));
+            if (Input.GetKey(KeyCode.S))
+            {
+                if (_rigidbody.velocity.z < 0)
+                {
+                    _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce);
+                }
+            }
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            _rigidbody.AddRelativeTorque(Vector3.forward * RotationForce * ratio);
-            _rigidbody.AddRelativeTorque(0, -InclinationForce * ratio, 0);
+            _rigidbody.AddRelativeTorque(0, -RotationForce, 0);
+            _rigidbody.AddRelativeTorque(0, 0, InclinationForce);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            _rigidbody.AddRelativeTorque(Vector3.forward * -RotationForce * ratio);
-            _rigidbody.AddRelativeTorque(0, InclinationForce * ratio, 0);
+            _rigidbody.AddRelativeTorque(0, RotationForce, 0);
+            _rigidbody.AddRelativeTorque(0, 0, -InclinationForce);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Ground")
+        {
+            _collisionDetected = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "Ground")
+        {
+            _collisionDetected = false;
         }
     }
 }
