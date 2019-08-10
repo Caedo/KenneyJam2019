@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShipEntity: {fileID: 8206893127328444951}
   RaceController: {fileID: 8206893127328444946}
-  PowerUpsManager: {fileID: 0}
   CriticalDeltaAngleToBrake: 20
   DistanceBeforeControlPointToBrake: 20
   MinimalSpeedWithBrakingBeforeControlPoint: 4000
   AngleTolerance: 1
+  EdgeDistanceToChest: 400
+  EdgeAngleToChest: 15
 --- !u!1001 &2225726066645681097
 PrefabInstance:
   m_ObjectHideFlags: 0

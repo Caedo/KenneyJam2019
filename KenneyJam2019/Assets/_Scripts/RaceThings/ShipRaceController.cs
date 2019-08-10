@@ -11,7 +11,7 @@ public class ShipRaceController : MonoBehaviour {
 
     public PlayerData playerData;
 
-    ShipEntity shipEntity;
+    public ShipEntity shipEntity;
 
     int crossedControlPointCount;
 

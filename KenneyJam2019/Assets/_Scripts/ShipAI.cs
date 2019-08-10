@@ -13,6 +13,8 @@ public class ShipAI : MonoBehaviour
     public int DistanceBeforeControlPointToBrake;
     public float MinimalSpeedWithBrakingBeforeControlPoint;
     public int AngleTolerance;
+    public float EdgeDistanceToChest;
+    public float EdgeAngleToChest;
 
     private PowerUpsManager _powerUpsManager;
 
@@ -36,14 +38,40 @@ public class ShipAI : MonoBehaviour
         {
             return;
         }
-        
+
         var nextControlPointPosition = RaceController.nextControlPoint.transform.position;
         var distanceToNextControlPoint = Vector3.Distance(nextControlPointPosition, transform.position);
         var vectorToTarget = nextControlPointPosition - transform.position;
         var angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.z) * Mathf.Rad2Deg;
-        var currentSpeed = GetComponent<Rigidbody>().velocity.sqrMagnitude;
 
         var deltaAngle = Mathf.DeltaAngle(angle, transform.eulerAngles.y - 180);
+
+        MoveShipForwardOrBrake(distanceToNextControlPoint, deltaAngle);
+        if (!RotateShipTowardChest())
+        {
+            RotateShipTowardControlPoint(distanceToNextControlPoint, deltaAngle);
+        }
+
+        UsePowerUpIfCan();
+    }
+
+    private void MoveShipForwardOrBrake(float distanceToNextControlPoint, float deltaAngle)
+    {
+        var currentSpeed = GetComponent<Rigidbody>().velocity.sqrMagnitude;
+
+        if (ShipEntity.IsNearToOverturn() || Math.Abs(deltaAngle) > CriticalDeltaAngleToBrake ||
+            (distanceToNextControlPoint < DistanceBeforeControlPointToBrake && currentSpeed > MinimalSpeedWithBrakingBeforeControlPoint))
+        {
+            ShipEntity.Brake();
+        }
+        else
+        {
+            ShipEntity.MoveForward();
+        }
+    }
+
+    private void RotateShipTowardControlPoint(float distanceToNextControlPoint, float deltaAngle)
+    {
         var angleMultiplier = _angleMultipliers.ToList().First(p => p.Key <= distanceToNextControlPoint).Value;
 
         if (!ShipEntity.IsNearToOverturn())
@@ -60,17 +88,47 @@ public class ShipAI : MonoBehaviour
 
         ShipEntity.CounterRightLeftRotation();
         ShipEntity.CounterForwardBackRotation();
+    }
 
-        Debug.Log($"Angle: {deltaAngle}, Speed: {currentSpeed}, Dist: {distanceToNextControlPoint}, Multi: {angleMultiplier}");
+    private bool RotateShipTowardChest()
+    {
+        var nearestChest = _powerUpsManager.GetNearestChest(transform.position);
+        var distanceToNearestChest = Vector3.Distance(nearestChest.transform.position, transform.position);
 
-        if (ShipEntity.IsNearToOverturn() || Math.Abs(deltaAngle) > CriticalDeltaAngleToBrake ||
-            (distanceToNextControlPoint < DistanceBeforeControlPointToBrake && currentSpeed > MinimalSpeedWithBrakingBeforeControlPoint))
+        if (distanceToNearestChest < EdgeDistanceToChest)
         {
-            ShipEntity.Brake();
+            var vectorToChest = nearestChest.transform.position - transform.position;
+            var angleToChest = Mathf.Atan2(vectorToChest.x, vectorToChest.z) * Mathf.Rad2Deg;
+            var deltaAngleToChest = Mathf.DeltaAngle(angleToChest, transform.eulerAngles.y - 180);
+
+            if (Math.Abs(deltaAngleToChest) < EdgeAngleToChest)
+            {
+                if (deltaAngleToChest < 0)
+                {
+                    ShipEntity.TurnRight();
+                }
+                else if (deltaAngleToChest > 0)
+                {
+                    ShipEntity.TurnLeft();
+                }
+
+                Debug.Log(deltaAngleToChest);
+                return true;
+            }
         }
-        else
+
+        return false;
+    }
+
+    private void UsePowerUpIfCan()
+    {
+        switch (ShipEntity.PowerUpReadyToLaunch.Type)
         {
-            ShipEntity.MoveForward();
+            case PowerUpType.Acceleration:
+            {
+                ShipEntity.UsePowerUp();
+                break;
+            }
         }
     }
 }

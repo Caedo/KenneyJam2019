@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f114cdf4390d7e4680f460a6a563a38, type: 3}
   m_Name: ChestSettings
   m_EditorClassIdentifier: 
-  ChanceForRespawn: 0.1
+  ChanceForRespawn: 0.005

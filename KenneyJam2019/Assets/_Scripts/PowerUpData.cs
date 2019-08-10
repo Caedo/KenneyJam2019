@@ -14,7 +14,7 @@ public class PowerUpData : ScriptableObject
 {
     public PowerUpType Type;
     public string Name;
-    public Image Icon;
+    public int Time;
 
     // Start is called before the first frame update
     void Start()

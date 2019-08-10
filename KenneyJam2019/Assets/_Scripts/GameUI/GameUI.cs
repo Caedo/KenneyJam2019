@@ -8,6 +8,12 @@ public class GameUI : MonoBehaviour {
 
     public Text lapText;
     public Text timeText;
+    public Text PowerUpText;
+    public Text PowerUpTimeLeft;
+
+    public Color NoPowerUpColor;
+    public Color PowerUpReadyColor;
+    public Color PowerUpActiveColor;
 
     public Text playersListText;
 
@@ -80,6 +86,27 @@ public class GameUI : MonoBehaviour {
                 TimeManager.PauseTime();
                 pausePanel.SetActive(true);
             }
+        }
+
+        if (playerShip.shipEntity.PowerUpReadyToLaunch != null)
+        {
+            PowerUpText.text = $"{playerShip.shipEntity.PowerUpReadyToLaunch.Name} READY";
+            PowerUpText.color = PowerUpReadyColor;
+        }
+        else if (playerShip.shipEntity.CurrentWorkingPowerUp != null)
+        {
+            PowerUpText.text = $"{playerShip.shipEntity.CurrentWorkingPowerUp.Name} ACTIVE";
+            PowerUpText.color = PowerUpActiveColor;
+
+            PowerUpTimeLeft.text = $"{playerShip.shipEntity.GetPowerUpTimeLeft():0.0} seconds left";
+            PowerUpTimeLeft.gameObject.SetActive(true);
+        }
+        else
+        {
+            PowerUpText.text = "NO POWERUP";
+            PowerUpText.color = NoPowerUpColor;
+            PowerUpTimeLeft.color = NoPowerUpColor;
+            PowerUpTimeLeft.gameObject.SetActive(false);
         }
     }
 

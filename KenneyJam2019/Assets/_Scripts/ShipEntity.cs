@@ -38,7 +38,10 @@ public class ShipEntity : MonoBehaviour
 
     void FixedUpdate()
     {
-        IsOverturned();
+        if (CurrentWorkingPowerUp != null && GetPowerUpTimeLeft() <= 0)
+        {
+            StopPowerUp();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -49,7 +52,10 @@ public class ShipEntity : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Chest"))
         {
-            PowerUpReadyToLaunch = _powerUpsManager.GetRandom();
+            if (PowerUpReadyToLaunch == null)
+            {
+                PowerUpReadyToLaunch = _powerUpsManager.GetRandom();
+            }
         }
     }
 
@@ -185,8 +191,19 @@ public class ShipEntity : MonoBehaviour
         _powerUpTimeStart = DateTime.Now;
     }
 
+    public double GetPowerUpTimeLeft()
+    {
+        if (_powerUpTimeStart == null || CurrentWorkingPowerUp == null)
+        {
+            return 0;
+        }
+
+        return (_powerUpTimeStart.Value.AddSeconds(CurrentWorkingPowerUp.Time) - DateTime.Now).TotalSeconds;
+    }
+
     private void StopPowerUp()
     {
         _bonusForwardForce = 0;
+        CurrentWorkingPowerUp = null;
     }
 }
