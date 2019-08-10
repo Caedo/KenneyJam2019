@@ -19,6 +19,12 @@ public class GameUI : MonoBehaviour {
 
     StringBuilder stringBuilder;
 
+    [Header("End Game Panel")]
+    public GameObject endGamePanel;
+    public Text listOfShipsThatFinishedTeRaceText;
+
+    List<ShipRaceController> shipsThatFinishedTheRace = new List<ShipRaceController>();
+
     int lapsCount;
 
     bool paused;
@@ -26,6 +32,8 @@ public class GameUI : MonoBehaviour {
     void Awake() {
         manager = FindObjectOfType<RaceManager>();
         stringBuilder = new StringBuilder();
+
+        ShipRaceController.OnFinishedRace += OnShipFinishedRace;
     }
 
     private void Start() {
@@ -74,5 +82,20 @@ public class GameUI : MonoBehaviour {
     public void ExitToMenu() {
         TimeManager.ResumeTime();
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main menu");
+    }
+
+    public void OnShipFinishedRace(ShipRaceController ship) {
+        shipsThatFinishedTheRace.Add(ship);
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < shipsThatFinishedTheRace.Count; i++) {
+            //@TODO: Add some time stamp
+            builder.AppendFormat("{0}. {1}\n", i + 1, shipsThatFinishedTheRace[i].playerData.name);
+        }
+        listOfShipsThatFinishedTeRaceText.text = builder.ToString();
+
+        if (ship.playerData.steerByAI == false) {
+            endGamePanel.SetActive(true);
+        }
     }
 }
