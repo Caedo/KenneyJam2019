@@ -45,7 +45,28 @@ public class GameUI : MonoBehaviour {
         lapText.text = $"Lap: {playerShip.GetLap()}/{lapsCount}";
         var minutes = (int) (manager.timeSinceRaceStarted / 60);
         var seconds = Mathf.RoundToInt(manager.timeSinceRaceStarted - minutes * 60);
-        timeText.text = $"Time: {minutes}:{seconds}";
+
+        string minutesStr;
+        string secondsStr;
+        if(minutes < 10)
+        {
+            minutesStr = "0" + minutes.ToString();
+        }
+        else
+        {
+            minutesStr =  minutes.ToString();
+        }
+
+        if(seconds < 10)
+        {
+            secondsStr = "0" + seconds.ToString();
+        }
+        else
+        {
+            secondsStr =  seconds.ToString();
+        }
+        
+        timeText.text = $"Time: {minutesStr}:{secondsStr}";
 
         if (Input.GetButtonDown("Cancel")) {
             if (paused) {

@@ -20,8 +20,17 @@ public class UIManager : MonoBehaviour {
 
     public RaceData raceData;
 
+    [Header("Transform targets")]
+    public Camera mainCamera;
+    public Transform mainTransform;
+    public Transform startTransform;
+    public Transform creditsTransform;
+    public Transform optionsTransform;
+
     private readonly Dictionary<string, Color> ColorDictionary = new Dictionary<string, Color>() { { "Black", Color.black }, { "White", Color.white }, { "Red", Color.red }, { "Green", Color.green }, { "Blue", Color.blue }, { "Yellow", Color.yellow }, { "Cyan", Color.cyan }, { "Magenta", Color.magenta }, { "Duck", new Color(0.5450f, 0.2705f, 0.0745f, 1f) }
     };
+
+    Transform target;
 
     // Start is called before the first frame update
     void Start() {
@@ -30,11 +39,14 @@ public class UIManager : MonoBehaviour {
         OptionsPanel.SetActive(false);
         CreditsPanel.SetActive(false);
         Time.timeScale = 1;
+
+        target = mainTransform;
     }
 
     // Update is called once per frame
     void Update() {
-
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, target.position, 0.1f);
+        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, target.rotation, 0.1f);
     }
 
     // Main menu
@@ -42,16 +54,22 @@ public class UIManager : MonoBehaviour {
     public void SetupGame() {
         MainMenuPanel.SetActive(false);
         GameSetupPanel.SetActive(true);
+
+        target = startTransform;
     }
 
     public void ShowOptions() {
         MainMenuPanel.SetActive(false);
         OptionsPanel.SetActive(true);
+
+        target = optionsTransform;
     }
 
     public void ShowCredits() {
         MainMenuPanel.SetActive(false);
         CreditsPanel.SetActive(true);
+
+        target = creditsTransform;
     }
 
     public void QuitGame() {
@@ -95,6 +113,8 @@ public class UIManager : MonoBehaviour {
     public void BackFromGameSetup() {
         MainMenuPanel.SetActive(true);
         GameSetupPanel.SetActive(false);
+
+        target = mainTransform;
     }
 
     // Options
@@ -106,6 +126,8 @@ public class UIManager : MonoBehaviour {
     public void BackFromOptions() {
         MainMenuPanel.SetActive(true);
         OptionsPanel.SetActive(false);
+
+        target = mainTransform;
     }
 
     // Credits
@@ -113,5 +135,7 @@ public class UIManager : MonoBehaviour {
     public void BackFromCredits() {
         MainMenuPanel.SetActive(true);
         CreditsPanel.SetActive(false);
+
+        target = mainTransform;
     }
 }
