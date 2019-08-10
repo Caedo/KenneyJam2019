@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
+public class AngleMultiplier
+{
+    public int Distance;
+    public float Angle;
+}
+
 public class ShipAI : MonoBehaviour
 {
     public ShipEntity ShipEntity;
@@ -15,23 +22,17 @@ public class ShipAI : MonoBehaviour
     public int AngleTolerance;
     public float EdgeDistanceToChest;
     public float EdgeAngleToChest;
+    public float MaxDifferenceBetweenDeltaAngles;
+    public List<AngleMultiplier> AngleMultipliers;
 
-    private PowerUpsManager _powerUpsManager;
-
-    private readonly Dictionary<int, float> _angleMultipliers = new Dictionary<int, float>
-    {
-        { int.MaxValue, 1f },
-        { 500, 2f },
-        { 100, 5f },
-        { 0, 10f }
-    };
+    public PowerUpsManager _powerUpsManager;
 
     void Start()
     {
         _powerUpsManager = FindObjectOfType<PowerUpsManager>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // Project meme
         if (Math.Abs(ShipEntity.canMove) < 0.1)
@@ -39,20 +40,47 @@ public class ShipAI : MonoBehaviour
             return;
         }
 
+        var (distanceToNextControlPoint, controlPointDeltaAngle) = GetDistanceAndDeltaAngleToNearestControlPoint();
+        var (distanceToNearestChest, nearestChestDeltaAngle) = GetDistanceAndDeltaAngleToNearestChest();
+
+        if (RotateShipTowardChest(distanceToNearestChest, controlPointDeltaAngle, nearestChestDeltaAngle))
+        {
+            MoveShipForwardOrBrake(distanceToNearestChest, nearestChestDeltaAngle);
+        }
+        else
+        {
+            RotateShipTowardControlPoint(distanceToNextControlPoint, controlPointDeltaAngle);
+            MoveShipForwardOrBrake(distanceToNextControlPoint, controlPointDeltaAngle);
+        }
+
+        UsePowerUpIfCan();
+    }
+
+    private (float distance, float deltaAngle) GetDistanceAndDeltaAngleToNearestControlPoint()
+    {
         var nextControlPointPosition = RaceController.nextControlPoint.transform.position;
         var distanceToNextControlPoint = Vector3.Distance(nextControlPointPosition, transform.position);
         var vectorToTarget = nextControlPointPosition - transform.position;
         var angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.z) * Mathf.Rad2Deg;
-
         var deltaAngle = Mathf.DeltaAngle(angle, transform.eulerAngles.y - 180);
 
-        MoveShipForwardOrBrake(distanceToNextControlPoint, deltaAngle);
-        if (!RotateShipTowardChest())
+        return (distanceToNextControlPoint, deltaAngle);
+    }
+
+    private (float distance, float deltaAngle) GetDistanceAndDeltaAngleToNearestChest()
+    {
+        var nearestChest = _powerUpsManager.GetNearestChest(transform.position);
+        if (nearestChest == null)
         {
-            RotateShipTowardControlPoint(distanceToNextControlPoint, deltaAngle);
+            return (float.MaxValue, float.MaxValue);
         }
 
-        UsePowerUpIfCan();
+        var distanceToNearestChest = Vector3.Distance(nearestChest.transform.position, transform.position);
+        var vectorToChest = nearestChest.transform.position - transform.position;
+        var angleToChest = Mathf.Atan2(vectorToChest.x, vectorToChest.z) * Mathf.Rad2Deg;
+        var deltaAngleToChest = Mathf.DeltaAngle(angleToChest, transform.eulerAngles.y - 180);
+
+        return (distanceToNearestChest, deltaAngleToChest);
     }
 
     private void MoveShipForwardOrBrake(float distanceToNextControlPoint, float deltaAngle)
@@ -72,7 +100,7 @@ public class ShipAI : MonoBehaviour
 
     private void RotateShipTowardControlPoint(float distanceToNextControlPoint, float deltaAngle)
     {
-        var angleMultiplier = _angleMultipliers.ToList().First(p => p.Key <= distanceToNextControlPoint).Value;
+        var angleMultiplier = AngleMultipliers.First(p => distanceToNextControlPoint >= p.Distance).Angle;
 
         if (!ShipEntity.IsNearToOverturn())
         {
@@ -90,29 +118,26 @@ public class ShipAI : MonoBehaviour
         ShipEntity.CounterForwardBackRotation();
     }
 
-    private bool RotateShipTowardChest()
+    private bool RotateShipTowardChest(float distanceToNextControlPoint, float controlPointDeltaAngle, float nearestChestDeltaAngle)
     {
-        var nearestChest = _powerUpsManager.GetNearestChest(transform.position);
-        var distanceToNearestChest = Vector3.Distance(nearestChest.transform.position, transform.position);
-
-        if (distanceToNearestChest < EdgeDistanceToChest)
+        if (Math.Abs(controlPointDeltaAngle - nearestChestDeltaAngle) > MaxDifferenceBetweenDeltaAngles)
         {
-            var vectorToChest = nearestChest.transform.position - transform.position;
-            var angleToChest = Mathf.Atan2(vectorToChest.x, vectorToChest.z) * Mathf.Rad2Deg;
-            var deltaAngleToChest = Mathf.DeltaAngle(angleToChest, transform.eulerAngles.y - 180);
+            return false;
+        }
 
-            if (Math.Abs(deltaAngleToChest) < EdgeAngleToChest)
+        if (distanceToNextControlPoint < EdgeDistanceToChest)
+        {
+            if (Math.Abs(nearestChestDeltaAngle) < EdgeAngleToChest)
             {
-                if (deltaAngleToChest < 0)
+                if (nearestChestDeltaAngle < 0)
                 {
                     ShipEntity.TurnRight();
                 }
-                else if (deltaAngleToChest > 0)
+                else if (nearestChestDeltaAngle > 0)
                 {
                     ShipEntity.TurnLeft();
                 }
 
-                Debug.Log(deltaAngleToChest);
                 return true;
             }
         }
@@ -122,12 +147,15 @@ public class ShipAI : MonoBehaviour
 
     private void UsePowerUpIfCan()
     {
-        switch (ShipEntity.PowerUpReadyToLaunch.Type)
+        if (ShipEntity.PowerUpReadyToLaunch != null)
         {
-            case PowerUpType.Acceleration:
+            switch (ShipEntity.PowerUpReadyToLaunch.Type)
             {
-                ShipEntity.UsePowerUp();
-                break;
+                case PowerUpType.Acceleration:
+                {
+                    ShipEntity.UsePowerUp();
+                    break;
+                }
             }
         }
     }

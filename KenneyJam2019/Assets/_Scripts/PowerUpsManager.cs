@@ -22,10 +22,12 @@ public class PowerUpsManager : MonoBehaviour
 
     public ChestEntity GetNearestChest(Vector3 position)
     {
-        return Chests.Select(p => new {Chest = p, Dist = Vector3.Distance(position, p.transform.position)})
+        return Chests
+            .Where(p => p.IsActive)
+            .Select(p => new {Chest = p, Dist = Vector3.Distance(position, p.transform.position)})
             .OrderBy(p => p.Dist)
-            .First()
-            .Chest;
+            .FirstOrDefault()
+            ?.Chest;
     }
 
     public PowerUpData GetRandom()

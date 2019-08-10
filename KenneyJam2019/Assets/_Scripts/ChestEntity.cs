@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChestEntity : MonoBehaviour
 {
     public ChestSettings ChestSettings;
+    public bool IsActive { get; private set; }
 
     private Renderer _renderer;
     private Collider _collider;
@@ -40,6 +41,8 @@ public class ChestEntity : MonoBehaviour
 
     void SetChestStatus(bool status)
     {
+        IsActive = status;
+
         _renderer.enabled = status;
         _collider.enabled = status;
         _lidRenderer.enabled = status;

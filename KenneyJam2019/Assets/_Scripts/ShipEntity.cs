@@ -185,7 +185,7 @@ public class ShipEntity : MonoBehaviour
         {
             case PowerUpType.Acceleration:
             {
-                _bonusForwardForce = 10000;
+                _bonusForwardForce = 2000;
                 break;
             }
         }

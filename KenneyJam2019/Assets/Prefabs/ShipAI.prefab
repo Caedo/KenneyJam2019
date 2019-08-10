@@ -18,8 +18,19 @@ MonoBehaviour:
   DistanceBeforeControlPointToBrake: 20
   MinimalSpeedWithBrakingBeforeControlPoint: 4000
   AngleTolerance: 1
-  EdgeDistanceToChest: 400
+  EdgeDistanceToChest: 500
   EdgeAngleToChest: 15
+  MaxDifferenceBetweenDeltaAngles: 15
+  AngleMultipliers:
+  - Distance: 99999999
+    Angle: 1
+  - Distance: 500
+    Angle: 2
+  - Distance: 100
+    Angle: 3
+  - Distance: 0
+    Angle: 5
+  _powerUpsManager: {fileID: 0}
 --- !u!1001 &2225726066645681097
 PrefabInstance:
   m_ObjectHideFlags: 0
