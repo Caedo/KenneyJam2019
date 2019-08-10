@@ -2,16 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class HighscoreEntry
+{
+    public HighscoreEntry(float t, string n)
+    {
+        time = t;
+        name = n;
+    }
+    public float time;
+    public string name;
+}
+
 public class RaceHighscores : MonoBehaviour
 {
+    
     public RaceManager raceManager;
 
-    public List<float> highscores { get; private set; }
+    public List<HighscoreEntry> highscores { get; private set; }
 
     void Awake()
     {
         ShipRaceController.OnFinishedRace += OnFinishedRace;
-        highscores = new List<float>();
+        highscores = new List<HighscoreEntry>();
+        for(int i = 0; i < 5; i++)
+        {
+            if(PlayerPrefs.HasKey("Highscore_time_" + i.ToString()))
+            {
+                float time = PlayerPrefs.GetFloat("Highscore_time_" + i.ToString());
+                string name = PlayerPrefs.GetString("Highscore_name_" + i.ToString());
+                highscores.Add(new HighscoreEntry(score, time));
+            }
+        }
     }
 
     void Update()
@@ -25,7 +46,32 @@ public class RaceHighscores : MonoBehaviour
         {
             // We have player
             highscores.Add(raceManager.timeSinceRaceStarted);
-            highscores.Sort();
+            highscores.OrderBy(q => q.time);
+
+            // Cut to the best five
+            while(highscores.Count > 5)
+            {
+                highscores.RemoveAt(highscores.Count - 1);
+            }
+
+            // Save highscores
+            for(int i = 0; i < 5; i++)
+            {
+                if(highscores.Count > i)
+                {
+                    PlayerPrefs.SetFloat("Highscore_time_" + i.ToString(), highscores[i].time);
+                    PlayerPrefs.SetString("Highscore_name_" + i.ToString(), highscores[i].name);
+                }
+                else
+                {
+                    if(PlayerPrefs.HasKey("Highscore_time_" + i.ToString()))
+                    {
+                        PlayerPrefs.DeleteKey("Highscore_time_" + i.ToString());
+                        PlayerPrefs.DeleteKey("Highscore_name_" + i.ToString());
+                    }
+                }
+            }
+            PlayerPrefs.Save();
         }
     }
 
