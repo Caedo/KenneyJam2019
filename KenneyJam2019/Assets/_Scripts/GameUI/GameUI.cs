@@ -40,7 +40,8 @@ public class GameUI : MonoBehaviour {
         stringBuilder.Clear();
 
         for (int i = 0; i < list.Count; i++) {
-            stringBuilder.Append($"{i+1}. {list[i].playerData.name}\n");
+            string name = list[i].playerData.name;
+            stringBuilder.AppendFormat("{0}. {1}\n", i + 1, name);
         }
 
         playersListText.text = stringBuilder.ToString();
