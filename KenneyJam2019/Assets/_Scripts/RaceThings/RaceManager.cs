@@ -35,11 +35,15 @@ public class RaceManager : MonoBehaviour {
 
         var positions = startLine.GetStartPositionsForPlayers(playersCount);
         for (int i = 0; i < playersCount; i++) {
-            var prefab = raceData.players[i].steerByAI ? AIShipPrefab : playerShipPrefab;
+            var playerData = raceData.players[i];
+
+            var prefab = playerData.steerByAI ? AIShipPrefab : playerShipPrefab;
             var ship = Instantiate(prefab, positions[i], startLine.transform.rotation);
             ship.raceData = raceData;
             ship.nextControlPoint = firstControlPoint;
-            ship.playerData = raceData.players[i];
+            ship.playerData = playerData;
+
+            ship.SetColor(playerData.color);
 
             ship.name = raceData.players[i].name + "Ship";
 

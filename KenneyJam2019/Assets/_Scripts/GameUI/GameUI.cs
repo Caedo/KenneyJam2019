@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour {
 
@@ -28,6 +29,7 @@ public class GameUI : MonoBehaviour {
     [Header("End Game Panel")]
     public GameObject endGamePanel;
     public Text listOfShipsThatFinishedTeRaceText;
+    public Text youLostOrYouWinText;
 
     List<ShipRaceController> shipsThatFinishedTheRace = new List<ShipRaceController>();
 
@@ -127,6 +129,11 @@ public class GameUI : MonoBehaviour {
         pausePanel.SetActive(false);
     }
 
+    public void RestartRace() {
+        var currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
+    }
+
     public void ExitToMenu() {
         TimeManager.ResumeTime();
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main menu");
@@ -139,6 +146,13 @@ public class GameUI : MonoBehaviour {
         for (int i = 0; i < shipsThatFinishedTheRace.Count; i++) {
             //@TODO: Add some time stamp
             builder.AppendFormat("{0}. {1}\n", i + 1, shipsThatFinishedTheRace[i].playerData.name);
+            if (shipsThatFinishedTheRace[0].playerData.steerByAI == false) {
+                youLostOrYouWinText.text = "You won";
+            }
+            else
+            {
+                youLostOrYouWinText.text = "You lost";
+            }
         }
         listOfShipsThatFinishedTeRaceText.text = builder.ToString();
 
