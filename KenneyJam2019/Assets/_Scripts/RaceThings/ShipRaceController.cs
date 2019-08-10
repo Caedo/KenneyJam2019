@@ -9,6 +9,8 @@ public class ShipRaceController : MonoBehaviour {
 
     public RaceControlPoint nextControlPoint;
 
+    public PlayerData playerData;
+
     ShipEntity shipEntity;
 
     int crossedControlPointCount;
@@ -60,10 +62,14 @@ public class ShipRaceController : MonoBehaviour {
         nextControlPoint = point.nextPoint;
     }
 
-    public(int, float) GetRaceDistanceTuble() {
+    public(int, float) GetRaceDistanceTuple() {
         var srqDist = Vector3.SqrMagnitude(transform.position - nextControlPoint.transform.position);
 
         return (lapNumber, srqDist);
+    }
+
+    public int GetLap() {
+        return lapNumber;
     }
 
     void OnDrawGizmos() {

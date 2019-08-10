@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Playerdata {
+public class PlayerData {
     public string name;
     public bool steerByAI;
 }
@@ -12,7 +12,7 @@ public class Playerdata {
 public class RaceData : ScriptableObject {
     public int lapCount;
 
-    public List<Playerdata> players;
+    public List<PlayerData> players;
 
     public int PlayersCount => players.Count;
 }
