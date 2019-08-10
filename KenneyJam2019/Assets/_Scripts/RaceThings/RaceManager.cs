@@ -37,6 +37,7 @@ public class RaceManager : MonoBehaviour {
             var ship = Instantiate(shipPrefab, positions[i], startLine.transform.rotation);
             ship.raceData = raceData;
             ship.nextControlPoint = firstControlPoint;
+            ship.playerData = raceData.players[i];
 
             ship.name = raceData.players[i].name + "Ship";
 

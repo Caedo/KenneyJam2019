@@ -11,12 +11,17 @@ public class GameUI : MonoBehaviour {
 
     public Text playersListText;
 
+    [Header("Pause menu")]
+    public GameObject pausePanel;
+
     RaceManager manager;
     ShipRaceController playerShip;
 
     StringBuilder stringBuilder;
 
     int lapsCount;
+
+    bool paused;
 
     void Awake() {
         manager = FindObjectOfType<RaceManager>();
@@ -33,6 +38,20 @@ public class GameUI : MonoBehaviour {
         var minutes = (int) (manager.timeSinceRaceStarted / 60);
         var seconds = Mathf.RoundToInt(manager.timeSinceRaceStarted - minutes * 60);
         timeText.text = $"Time: {minutes}:{seconds}";
+
+        if (Input.GetButtonDown("Cancel")) {
+            if (paused) {
+                paused = false;
+
+                TimeManager.ResumeTime();
+                pausePanel.SetActive(false);
+            } else {
+                paused = true;
+
+                TimeManager.PauseTime();
+                pausePanel.SetActive(true);
+            }
+        }
     }
 
     void LateUpdate() {
@@ -40,9 +59,20 @@ public class GameUI : MonoBehaviour {
         stringBuilder.Clear();
 
         for (int i = 0; i < list.Count; i++) {
-            stringBuilder.Append($"{i+1}. {list[i].playerData.name}\n");
+            string name = list[i].playerData.name;
+            stringBuilder.AppendFormat("{0}. {1}\n", i + 1, name);
         }
 
         playersListText.text = stringBuilder.ToString();
+    }
+
+    public void ResumeGame() {
+        TimeManager.ResumeTime();
+        pausePanel.SetActive(false);
+    }
+
+    public void ExitToMenu() {
+        TimeManager.ResumeTime();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main menu");
     }
 }
