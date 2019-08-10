@@ -30,42 +30,33 @@ public class ShipEntity : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
+                MoveForward();
             }
 
             if (Input.GetKey(KeyCode.S))
             {
-                if (_rigidbody.velocity.z < 0)
-                {
-                    _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce * canMove);
-                }
+                Brake();
             }
         }
 
-        if (transform.localEulerAngles.z > 10 && transform.localEulerAngles.z < 350 &&
-            !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
-            var add = transform.localEulerAngles.z < 180;
-            _rigidbody.AddRelativeTorque(0, 0, AntiSinkRightLeftForce * canMove * (add ? -1 : 1));
+            CounterRightLeftRotation();
         }
 
-        if (transform.localEulerAngles.x > 10 && transform.localEulerAngles.x < 350 &&
-            !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
-            var add = transform.localEulerAngles.x < 180;
-            _rigidbody.AddRelativeTorque(AntiSinkForwardBackForce * canMove * (add ? -1 : 1), 0, 0);
+            CounterForwardBackRotation();
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            _rigidbody.AddRelativeTorque(0, -RotationForce * canMove, 0);
-            _rigidbody.AddRelativeTorque(0, 0, InclinationForce * canMove);
+            TurnLeft();
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            _rigidbody.AddRelativeTorque(0, RotationForce * canMove, 0);
-            _rigidbody.AddRelativeTorque(0, 0, -InclinationForce * canMove);
+            TurnRight();
         }
     }
 
@@ -82,6 +73,49 @@ public class ShipEntity : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             _collisionDetected = false;
+        }
+    }
+
+    public void MoveForward()
+    {
+        _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
+    }
+
+    public void Brake()
+    {
+        if (_rigidbody.velocity.z < 0)
+        {
+            _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce * canMove);
+        }
+    }
+
+    public void TurnRight()
+    {
+        _rigidbody.AddRelativeTorque(0, RotationForce * canMove, 0);
+        _rigidbody.AddRelativeTorque(0, 0, -InclinationForce * canMove);
+    }
+
+    public void TurnLeft()
+    {
+        _rigidbody.AddRelativeTorque(0, -RotationForce * canMove, 0);
+        _rigidbody.AddRelativeTorque(0, 0, InclinationForce * canMove);
+    }
+
+    public void CounterRightLeftRotation()
+    {
+        if (transform.localEulerAngles.z > 10 && transform.localEulerAngles.z < 350)
+        {
+            var add = transform.localEulerAngles.z < 180;
+            _rigidbody.AddRelativeTorque(0, 0, AntiSinkRightLeftForce * canMove * (add ? -1 : 1));
+        }
+    }
+
+    public void CounterForwardBackRotation()
+    {
+        if (transform.localEulerAngles.x > 10 && transform.localEulerAngles.x < 350)
+        {
+            var add = transform.localEulerAngles.x < 180;
+            _rigidbody.AddRelativeTorque(AntiSinkForwardBackForce * canMove * (add ? -1 : 1), 0, 0);
         }
     }
 }
