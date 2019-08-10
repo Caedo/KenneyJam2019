@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
 
 public class HighscoreEntry
 {
@@ -28,9 +30,9 @@ public class RaceHighscores : MonoBehaviour
         {
             if(PlayerPrefs.HasKey("Highscore_time_" + i.ToString()))
             {
-                float time = PlayerPrefs.GetFloat("Highscore_time_" + i.ToString());
+                float score = PlayerPrefs.GetFloat("Highscore_time_" + i.ToString());
                 string name = PlayerPrefs.GetString("Highscore_name_" + i.ToString());
-                highscores.Add(new HighscoreEntry(score, time));
+                highscores.Add(new HighscoreEntry(score, name));
             }
         }
     }
@@ -45,7 +47,7 @@ public class RaceHighscores : MonoBehaviour
         if(shipRaceController.playerData.steerByAI == false)
         {
             // We have player
-            highscores.Add(raceManager.timeSinceRaceStarted);
+            highscores.Add(new HighscoreEntry(raceManager.timeSinceRaceStarted, shipRaceController.playerData.name));
             highscores.OrderBy(q => q.time);
 
             // Cut to the best five
