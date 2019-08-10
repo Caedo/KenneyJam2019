@@ -52,7 +52,7 @@ public class ShipEntity : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             _collisionDetected = true;
         }
@@ -60,7 +60,7 @@ public class ShipEntity : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.name == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             _collisionDetected = false;
         }

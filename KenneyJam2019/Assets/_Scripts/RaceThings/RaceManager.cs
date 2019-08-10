@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RaceManager : MonoBehaviour {
     public RaceData raceData;
-    public GameObject shipPrefab;
+    public ShipRaceController shipPrefab;
 
     [Header("Start Race Things")]
     public StartLine startLine;
