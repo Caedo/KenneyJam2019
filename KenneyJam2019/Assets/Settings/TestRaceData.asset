@@ -15,8 +15,11 @@ MonoBehaviour:
   lapCount: 1
   players:
   - name: Captain Jack Spearow
-    steerByAI: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    steerByAI: 1
   - name: Captain Jack Spearow
-    steerByAI: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    steerByAI: 1
   - name: Captain Jack Spearow
+    color: {r: 0, g: 0, b: 0, a: 0}
     steerByAI: 0
