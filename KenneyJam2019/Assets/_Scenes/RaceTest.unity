@@ -2620,7 +2620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &401536727
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9834,6 +9834,7 @@ MonoBehaviour:
   pausePanel: {fileID: 1056450043}
   endGamePanel: {fileID: 401536726}
   listOfShipsThatFinishedTeRaceText: {fileID: 2050167648}
+  youLostOrYouWinText: {fileID: 1020042104}
 --- !u!114 &1351047497
 MonoBehaviour:
   m_ObjectHideFlags: 0
