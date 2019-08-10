@@ -98,6 +98,8 @@ MonoBehaviour:
   BackwardForce: 1000
   RotationForce: 50000
   InclinationForce: 11000
+  AntiSinkRightLeftForce: 20000
+  AntiSinkForwardBackForce: 15000
   canMove: 0
 --- !u!54 &8000613683493335519
 Rigidbody:

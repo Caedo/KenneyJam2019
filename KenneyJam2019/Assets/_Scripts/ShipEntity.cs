@@ -10,6 +10,8 @@ public class ShipEntity : MonoBehaviour
     public float BackwardForce;
     public float RotationForce;
     public float InclinationForce;
+    public float AntiSinkRightLeftForce;
+    public float AntiSinkForwardBackForce;
 
     private Rigidbody _rigidbody;
     private bool _collisionDetected;
@@ -38,6 +40,20 @@ public class ShipEntity : MonoBehaviour
                     _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce * canMove);
                 }
             }
+        }
+
+        if (transform.localEulerAngles.z > 10 && transform.localEulerAngles.z < 350 &&
+            !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            var add = transform.localEulerAngles.z < 180;
+            _rigidbody.AddRelativeTorque(0, 0, AntiSinkRightLeftForce * canMove * (add ? -1 : 1));
+        }
+
+        if (transform.localEulerAngles.x > 10 && transform.localEulerAngles.x < 350 &&
+            !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            var add = transform.localEulerAngles.x < 180;
+            _rigidbody.AddRelativeTorque(AntiSinkForwardBackForce * canMove * (add ? -1 : 1), 0, 0);
         }
 
         if (Input.GetKey(KeyCode.A))
