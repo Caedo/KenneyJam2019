@@ -16,3 +16,7 @@ MonoBehaviour:
   players:
   - name: Captain Jack Spearow
     steerByAI: 0
+  - name: Captain Jack Spearow
+    steerByAI: 0
+  - name: Captain Jack Spearow
+    steerByAI: 0

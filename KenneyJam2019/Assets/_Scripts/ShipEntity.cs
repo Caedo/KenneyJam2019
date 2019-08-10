@@ -16,6 +16,7 @@ public class ShipEntity : MonoBehaviour
     public int SecondsBeforeReset;
     public float MaxSpeedToReset;
     public int CriticalAngleToOverturn;
+    public int CriticalAngleToNearOverturn;
 
     private Rigidbody _rigidbody;
     private bool _collisionDetected;
@@ -33,18 +34,15 @@ public class ShipEntity : MonoBehaviour
     {
         if (IsPlayer && !IsOverturned())
         {
-            if (_collisionDetected)
+            if (Input.GetKey(KeyCode.W))
             {
-                if (Input.GetKey(KeyCode.W))
-                {
-                    MoveForward();
-                    Debug.Log("Going forward");
-                }
+                MoveForward();
+                Debug.Log("Going forward");
+            }
 
-                if (Input.GetKey(KeyCode.S))
-                {
-                    Brake();
-                }
+            if (Input.GetKey(KeyCode.S))
+            {
+                Brake();
             }
 
             if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
@@ -89,21 +87,27 @@ public class ShipEntity : MonoBehaviour
 
     public void MoveForward()
     {
-        if (!IsShipCriticalAnglePassed())
+        if (_collisionDetected)
         {
-            _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
-        }
-        else
-        {
-            Debug.Log("Can't move ship, overturned");
+            if (!IsShipCriticalAnglePassed())
+            {
+                _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
+            }
+            else
+            {
+                Debug.Log("Can't move ship, overturned");
+            }
         }
     }
 
     public void Brake()
     {
-        if (_rigidbody.velocity.z < 0)
+        if (_collisionDetected)
         {
-            _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce * canMove);
+            if (_rigidbody.velocity.z < 0)
+            {
+                _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce * canMove);
+            }
         }
     }
 
@@ -175,5 +179,11 @@ public class ShipEntity : MonoBehaviour
     {
         return transform.localEulerAngles.z > CriticalAngleToOverturn &&
                transform.localEulerAngles.z < 360 - CriticalAngleToOverturn;
+    }
+
+    public bool IsNearToOverturn()
+    {
+        return transform.localEulerAngles.z > CriticalAngleToNearOverturn &&
+               transform.localEulerAngles.z < 360 - CriticalAngleToNearOverturn;
     }
 }
