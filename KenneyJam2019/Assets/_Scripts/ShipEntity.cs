@@ -12,9 +12,14 @@ public class ShipEntity : MonoBehaviour
     public float InclinationForce;
     public float AntiSinkRightLeftForce;
     public float AntiSinkForwardBackForce;
+    public bool IsPlayer;
+    public int SecondsBeforeReset;
+    public float MaxSpeedToReset;
+    public int CriticalAngleToOverturn;
 
     private Rigidbody _rigidbody;
     private bool _collisionDetected;
+    private DateTime? _overturnedTimeStart;
 
     [HideInInspector]
     public float canMove = 1; // 0 as not, 1 as sail to the end of th world!
@@ -26,38 +31,44 @@ public class ShipEntity : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_collisionDetected)
+        if (IsPlayer && !IsOverturned())
         {
-            if (Input.GetKey(KeyCode.W))
+            if (_collisionDetected)
             {
-                MoveForward();
+                if (Input.GetKey(KeyCode.W))
+                {
+                    MoveForward();
+                    Debug.Log("Going forward");
+                }
+
+                if (Input.GetKey(KeyCode.S))
+                {
+                    Brake();
+                }
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
-                Brake();
+                CounterRightLeftRotation();
+            }
+
+            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+            {
+                CounterForwardBackRotation();
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                TurnLeft();
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                TurnRight();
             }
         }
 
-        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            CounterRightLeftRotation();
-        }
-
-        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            CounterForwardBackRotation();
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            TurnLeft();
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            TurnRight();
-        }
+        IsOverturned();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -78,7 +89,14 @@ public class ShipEntity : MonoBehaviour
 
     public void MoveForward()
     {
-        _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
+        if (!IsShipCriticalAnglePassed())
+        {
+            _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
+        }
+        else
+        {
+            Debug.Log("Can't move ship, overturned");
+        }
     }
 
     public void Brake()
@@ -91,14 +109,20 @@ public class ShipEntity : MonoBehaviour
 
     public void TurnRight()
     {
-        _rigidbody.AddRelativeTorque(0, RotationForce * canMove, 0);
-        _rigidbody.AddRelativeTorque(0, 0, -InclinationForce * canMove);
+        if (!IsShipCriticalAnglePassed())
+        {
+            _rigidbody.AddRelativeTorque(0, RotationForce * canMove, 0);
+            _rigidbody.AddRelativeTorque(0, 0, -InclinationForce * canMove);
+        }
     }
 
     public void TurnLeft()
     {
-        _rigidbody.AddRelativeTorque(0, -RotationForce * canMove, 0);
-        _rigidbody.AddRelativeTorque(0, 0, InclinationForce * canMove);
+        if (!IsShipCriticalAnglePassed())
+        {
+            _rigidbody.AddRelativeTorque(0, -RotationForce * canMove, 0);
+            _rigidbody.AddRelativeTorque(0, 0, InclinationForce * canMove);
+        }
     }
 
     public void CounterRightLeftRotation()
@@ -117,5 +141,39 @@ public class ShipEntity : MonoBehaviour
             var add = transform.localEulerAngles.x < 180;
             _rigidbody.AddRelativeTorque(AntiSinkForwardBackForce * canMove * (add ? -1 : 1), 0, 0);
         }
+    }
+
+    public bool IsOverturned()
+    {
+        if (_collisionDetected && _rigidbody.velocity.sqrMagnitude < MaxSpeedToReset && IsShipCriticalAnglePassed())
+        {
+            if (_overturnedTimeStart == null)
+            {
+                _overturnedTimeStart = DateTime.Now;
+                Debug.Log("Ship overturned, waiting for reset...");
+            }
+
+            if ((DateTime.Now - _overturnedTimeStart).Value.TotalSeconds >= SecondsBeforeReset)
+            {
+                ResetShipPosition();
+                Debug.Log("Ship position reset");
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void ResetShipPosition()
+    {
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        _overturnedTimeStart = null;
+    }
+
+    private bool IsShipCriticalAnglePassed()
+    {
+        return transform.localEulerAngles.z > CriticalAngleToOverturn &&
+               transform.localEulerAngles.z < 360 - CriticalAngleToOverturn;
     }
 }
