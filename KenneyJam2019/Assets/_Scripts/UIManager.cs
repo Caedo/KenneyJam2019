@@ -12,7 +12,21 @@ public class UIManager : MonoBehaviour
     public GameObject CreditsPanel;
     public Text NumberOfNpcsValueLabel;
     public InputField NameField;
+    public Dropdown ColorDropdown;
+    public Text NumberOfLapsValueLabel;
     public AudioMixer mixer;
+    private readonly Dictionary<string, Color> ColorDictionary= new Dictionary<string, Color>()
+    {
+        {"Black", Color.black},
+        {"White", Color.white},
+        {"Red", Color.red},
+        {"Green", Color.green},
+        {"Blue", Color.blue},
+        {"Yellow", Color.yellow},
+        {"Cyan", Color.cyan},
+        {"Magenta", Color.magenta},
+        {"Duck", new Color(0.5450f, 0.2705f, 0.0745f, 1f)}
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -66,10 +80,19 @@ public class UIManager : MonoBehaviour
         NumberOfNpcsValueLabel.text = ((int)number).ToString();
     }
 
+    public void SetNumberOfLaps(float number)
+    {
+        NumberOfLapsValueLabel.text = ((int)number).ToString();
+    }
+
     public void StartGame()
     {
         int numberOfNpcs = int.Parse(NumberOfNpcsValueLabel.text);
         string playerName = NameField.text;
+        string color = ColorDropdown.options[ColorDropdown.value].text;
+        Color playerColor = ColorDictionary[color];
+        int numberOfLaps = int.Parse(NumberOfLapsValueLabel.text);
+        
         //Application.LoadLevel(Application.loadedLevel);
     }
 
