@@ -32,6 +32,9 @@ public class ShipEntity : MonoBehaviour
 
     public bool IsGounded => _collisionDetected;
 
+    public event System.Action<PowerUpData> OnPowerUpUsed;
+    public event System.Action<PowerUpData> OnPowerUpEnded;
+
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -42,6 +45,7 @@ public class ShipEntity : MonoBehaviour
     {
         if (CurrentWorkingPowerUp != null && GetPowerUpTimeLeft() <= 0)
         {
+            OnPowerUpEnded?.Invoke(CurrentWorkingPowerUp);
             StopPowerUp();
         }
     }
@@ -177,6 +181,8 @@ public class ShipEntity : MonoBehaviour
         {
             return;
         }
+
+        OnPowerUpUsed?.Invoke(PowerUpReadyToLaunch);
 
         CurrentWorkingPowerUp = PowerUpReadyToLaunch;
         PowerUpReadyToLaunch = null;
