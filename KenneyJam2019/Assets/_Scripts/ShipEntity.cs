@@ -30,6 +30,8 @@ public class ShipEntity : MonoBehaviour
     [HideInInspector]
     public float canMove = 1; // 0 as not, 1 as sail to the end of th world!
 
+    public bool IsGounded => _collisionDetected;
+
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
