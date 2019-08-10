@@ -122,12 +122,15 @@ public class ShipAI : MonoBehaviour
 
     private void UsePowerUpIfCan()
     {
-        switch (ShipEntity.PowerUpReadyToLaunch.Type)
+        if(ShipEntity.PowerUpReadyToLaunch != null)
         {
-            case PowerUpType.Acceleration:
+            switch (ShipEntity.PowerUpReadyToLaunch.Type)
             {
-                ShipEntity.UsePowerUp();
-                break;
+                case PowerUpType.Acceleration:
+                {
+                    ShipEntity.UsePowerUp();
+                    break;
+                }
             }
         }
     }

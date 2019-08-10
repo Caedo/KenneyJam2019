@@ -13,6 +13,8 @@ public class ShipRaceController : MonoBehaviour {
 
     public ShipEntity shipEntity;
 
+    public Renderer[] renderersToColor;
+
     int crossedControlPointCount;
 
     bool canMove;
@@ -48,6 +50,12 @@ public class ShipRaceController : MonoBehaviour {
                     FinishRace();
                 }
             }
+        }
+    }
+
+    public void SetColor(Color color) {
+        for (int i = 0; i < renderersToColor.Length; i++) {
+            renderersToColor[i].material.color = color;
         }
     }
 
