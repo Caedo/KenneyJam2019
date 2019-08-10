@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject MainMenuPanel;
+    public GameObject GameSetupPanel;
     public GameObject OptionsPanel;
     public GameObject CreditsPanel;
+    public Text NumberOfNpcsValueLabel;
+    public InputField NameField;
     public AudioMixer mixer;
 
     // Start is called before the first frame update
     void Start()
     {
         MainMenuPanel.SetActive(true);
+        GameSetupPanel.SetActive(false);
         OptionsPanel.SetActive(false);
         CreditsPanel.SetActive(false);
         Time.timeScale = 1;
@@ -25,12 +30,15 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void StartGame()
+    // Main menu
+
+    public void SetupGame()
     {
-        //Application.LoadLevel(Application.loadedLevel);
+        MainMenuPanel.SetActive(false);
+        GameSetupPanel.SetActive(true);
     }
 
-    public void OpenOptions()
+    public void ShowOptions()
     {
         MainMenuPanel.SetActive(false);
         OptionsPanel.SetActive(true);
@@ -51,16 +59,40 @@ public class UIManager : MonoBehaviour
 #endif
     }
 
+    // Setup Game
+
+    public void SetNumberOfNpcs(float number)
+    {
+        NumberOfNpcsValueLabel.text = ((int)number).ToString();
+    }
+
+    public void StartGame()
+    {
+        int numberOfNpcs = int.Parse(NumberOfNpcsValueLabel.text);
+        string playerName = NameField.text;
+        //Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void BackFromGameSetup()
+    {
+        MainMenuPanel.SetActive(true);
+        GameSetupPanel.SetActive(false);
+    }
+
+    // Options
+
+    public void SetLevel(float sliderValue)
+    {
+        mixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
+    }
+
     public void BackFromOptions()
     {
         MainMenuPanel.SetActive(true);
         OptionsPanel.SetActive(false);
     }
 
-    public void SetLevel(float sliderValue)
-    {
-        mixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
-    }
+    // Credits
 
     public void BackFromCredits()
     {
