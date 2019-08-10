@@ -88,6 +88,11 @@ MonoBehaviour:
     name: 
     color: {r: 0, g: 0, b: 0, a: 0}
     steerByAI: 0
+  shipEntity: {fileID: 0}
+  renderersToColor:
+  - {fileID: 8000613684446120405}
+  - {fileID: 8000613684446120407}
+  - {fileID: 8000613684446120233}
 --- !u!114 &8000613683493335518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,6 +579,24 @@ PrefabInstance:
 --- !u!4 &8000613684448545547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400034, guid: 67d159af8f82f9c428c2ef4807f347db,
+    type: 3}
+  m_PrefabInstance: {fileID: 8000613684448154025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8000613684446120405 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300028, guid: 67d159af8f82f9c428c2ef4807f347db,
+    type: 3}
+  m_PrefabInstance: {fileID: 8000613684448154025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8000613684446120407 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300030, guid: 67d159af8f82f9c428c2ef4807f347db,
+    type: 3}
+  m_PrefabInstance: {fileID: 8000613684448154025}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8000613684446120233 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300032, guid: 67d159af8f82f9c428c2ef4807f347db,
     type: 3}
   m_PrefabInstance: {fileID: 8000613684448154025}
   m_PrefabAsset: {fileID: 0}
