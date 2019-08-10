@@ -27,10 +27,9 @@ MonoBehaviour:
   - Distance: 500
     Angle: 2
   - Distance: 100
-    Angle: 3
+    Angle: 2
   - Distance: 0
-    Angle: 5
-  _powerUpsManager: {fileID: 0}
+    Angle: 2
 --- !u!1001 &2225726066645681097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,6 +41,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShipAI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335514, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyShip
       objectReference: {fileID: 0}
     - target: {fileID: 8000613683493335517, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
         type: 3}
@@ -97,6 +101,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: InclinationForce
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: RotationForce
+      value: 80000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: ForwardForce
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: BackwardForce
+      value: 3000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adee07d2d2ab5e44dadfe1ddf94951ab, type: 3}

@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum Dir
+{
+    Left,
+    Right,
+    Up,
+    Down
+}
+
 [Serializable]
 public class AngleMultiplier
 {
@@ -25,7 +33,8 @@ public class ShipAI : MonoBehaviour
     public float MaxDifferenceBetweenDeltaAngles;
     public List<AngleMultiplier> AngleMultipliers;
 
-    public PowerUpsManager _powerUpsManager;
+    private PowerUpsManager _powerUpsManager;
+    private Dir? _shipToOmitDir;
 
     void Start()
     {
@@ -43,7 +52,7 @@ public class ShipAI : MonoBehaviour
         var (distanceToNextControlPoint, controlPointDeltaAngle) = GetDistanceAndDeltaAngleToNearestControlPoint();
         var (distanceToNearestChest, nearestChestDeltaAngle) = GetDistanceAndDeltaAngleToNearestChest();
 
-        if (RotateShipTowardChest(distanceToNearestChest, controlPointDeltaAngle, nearestChestDeltaAngle))
+        if (RotateShipTowardChest(distanceToNextControlPoint, distanceToNearestChest, controlPointDeltaAngle, nearestChestDeltaAngle))
         {
             MoveShipForwardOrBrake(distanceToNearestChest, nearestChestDeltaAngle);
         }
@@ -54,6 +63,41 @@ public class ShipAI : MonoBehaviour
         }
 
         UsePowerUpIfCan();
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnemyShip")
+        {
+            var vectorToTarget = collision.gameObject.transform.position - transform.position;
+            var angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.z) * Mathf.Rad2Deg;
+            var deltaAngle = Mathf.DeltaAngle(angle, transform.eulerAngles.y - 180);
+
+            int test = 90;
+            Debug.Log(deltaAngle);
+            if (deltaAngle > -test && deltaAngle < test)
+            {
+                _shipToOmitDir = Dir.Down;
+            }
+            else if (deltaAngle < -test)
+            {
+                _shipToOmitDir = Dir.Right;
+                Debug.Log("Omit right");
+            }
+            else if(deltaAngle > test)
+            {
+                _shipToOmitDir = Dir.Left;
+                Debug.Log("Omit left");
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnemyShip")
+        {
+            _shipToOmitDir = null;
+        }
     }
 
     private (float distance, float deltaAngle) GetDistanceAndDeltaAngleToNearestControlPoint()
@@ -88,7 +132,8 @@ public class ShipAI : MonoBehaviour
         var currentSpeed = GetComponent<Rigidbody>().velocity.sqrMagnitude;
 
         if (ShipEntity.IsNearToOverturn() || Math.Abs(deltaAngle) > CriticalDeltaAngleToBrake ||
-            (distanceToNextControlPoint < DistanceBeforeControlPointToBrake && currentSpeed > MinimalSpeedWithBrakingBeforeControlPoint))
+            (distanceToNextControlPoint < DistanceBeforeControlPointToBrake && currentSpeed > MinimalSpeedWithBrakingBeforeControlPoint) ||
+            _shipToOmitDir == Dir.Down)
         {
             ShipEntity.Brake();
         }
@@ -104,11 +149,11 @@ public class ShipAI : MonoBehaviour
 
         if (!ShipEntity.IsNearToOverturn())
         {
-            if (deltaAngle < -(AngleTolerance * angleMultiplier))
+            if (deltaAngle < -(AngleTolerance * angleMultiplier) || _shipToOmitDir == Dir.Right)
             {
                 ShipEntity.TurnRight();
             }
-            else if (deltaAngle > AngleTolerance * angleMultiplier)
+            else if (deltaAngle > AngleTolerance * angleMultiplier || _shipToOmitDir == Dir.Left)
             {
                 ShipEntity.TurnLeft();
             }
@@ -118,14 +163,15 @@ public class ShipAI : MonoBehaviour
         ShipEntity.CounterForwardBackRotation();
     }
 
-    private bool RotateShipTowardChest(float distanceToNextControlPoint, float controlPointDeltaAngle, float nearestChestDeltaAngle)
+    private bool RotateShipTowardChest(float distanceToControlPoint, float distanceToNearestChest, float controlPointDeltaAngle, float nearestChestDeltaAngle)
     {
-        if (Math.Abs(controlPointDeltaAngle - nearestChestDeltaAngle) > MaxDifferenceBetweenDeltaAngles)
+        if (Math.Abs(controlPointDeltaAngle - nearestChestDeltaAngle) > MaxDifferenceBetweenDeltaAngles ||
+            distanceToControlPoint < distanceToNearestChest)
         {
             return false;
         }
 
-        if (distanceToNextControlPoint < EdgeDistanceToChest)
+        if (distanceToNearestChest < EdgeDistanceToChest)
         {
             if (Math.Abs(nearestChestDeltaAngle) < EdgeAngleToChest)
             {

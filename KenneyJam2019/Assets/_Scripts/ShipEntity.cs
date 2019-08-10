@@ -58,7 +58,11 @@ public class ShipEntity : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Chest"))
         {
-            if (PowerUpReadyToLaunch == null)
+            if (CurrentWorkingPowerUp != null)
+            {
+                _powerUpTimeStart = DateTime.Now;
+            }
+            else if (PowerUpReadyToLaunch == null)
             {
                 PowerUpReadyToLaunch = _powerUpsManager.GetRandom();
             }
