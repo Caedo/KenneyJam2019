@@ -20,8 +20,14 @@ public class RaceManager : MonoBehaviour {
 
     List<ShipRaceController> ships = new List<ShipRaceController>();
 
+    List<ShipRaceController> shipsThatFinishedTheRace = new List<ShipRaceController>();
+
     float countdownTimer;
-    bool counting;
+
+    public ShipRaceController playerShip { get; private set; }
+    public float timeSinceRaceStarted { get; private set; }
+
+    bool raceStarted;
 
     void Awake() {
         int playersCount = raceData.PlayersCount;
@@ -34,7 +40,10 @@ public class RaceManager : MonoBehaviour {
 
             ship.name = raceData.players[i].name + "Ship";
 
-            if (raceData.players[i].steerByAI == false) camera.CameraTarget = ship.transform.Find("CameraTarget").gameObject;
+            if (raceData.players[i].steerByAI == false) {
+                camera.CameraTarget = ship.transform.Find("CameraTarget").gameObject;
+                playerShip = ship;
+            }
 
             ships.Add(ship);
         }
@@ -47,26 +56,33 @@ public class RaceManager : MonoBehaviour {
     }
 
     void StartRace() {
+        raceStarted = false; // that's not bug...
         StartCoroutine(CountingRoutine());
     }
 
     void Update() {
         ships.Sort((a, b) => {
-            (int aLaps, float aDist) = a.GetRaceDistanceTuble();
-            (int bLaps, float bDist) = b.GetRaceDistanceTuble();
+            (int aLaps, float aDist) = a.GetRaceDistanceTuple();
+            (int bLaps, float bDist) = b.GetRaceDistanceTuple();
 
             if (aLaps == bLaps) {
                 return (aDist < bDist) ? -1 : 1;
             } else {
                 return (aLaps < bLaps) ? -1 : 1;
             }
-
         });
+
+        if (raceStarted) {
+            timeSinceRaceStarted += Time.deltaTime;
+        }
+    }
+
+    public int GetLapsCount() {
+        return raceData.lapCount;
     }
 
     IEnumerator CountingRoutine() {
         countdownTimer = startCountdownTime;
-        counting = true;
 
         while (countdownTimer > 0) {
             yield return null;
@@ -74,10 +90,15 @@ public class RaceManager : MonoBehaviour {
             countdownTimer -= Time.deltaTime;
         }
         Debug.Log("START!!!");
+        raceStarted = true;
         OnRaceStart.Raise();
     }
 
     void OnShipFinishRace(ShipRaceController ship) {
+        shipsThatFinishedTheRace.Add(ship);
+    }
 
+    public List<ShipRaceController> GetShipsList() {
+        return ships;
     }
 }
