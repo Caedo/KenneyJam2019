@@ -32,6 +32,7 @@ public class ShipRaceController : MonoBehaviour {
     public void RaceStart() {
         canMove = true;
         shipEntity.canMove = 1;
+        shipEntity.IsPlayer = !playerData.steerByAI;
     }
 
     void OnTriggerEnter(Collider other) {

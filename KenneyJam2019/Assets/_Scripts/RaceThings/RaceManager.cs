@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class RaceManager : MonoBehaviour {
     public RaceData raceData;
-    public ShipRaceController shipPrefab;
+    public ShipRaceController playerShipPrefab;
+    public ShipRaceController AIShipPrefab;
 
     [Header("Start Race Things")]
     public StartLine startLine;
@@ -34,7 +35,8 @@ public class RaceManager : MonoBehaviour {
 
         var positions = startLine.GetStartPositionsForPlayers(playersCount);
         for (int i = 0; i < playersCount; i++) {
-            var ship = Instantiate(shipPrefab, positions[i], startLine.transform.rotation);
+            var prefab = raceData.players[i].steerByAI ? AIShipPrefab : playerShipPrefab;
+            var ship = Instantiate(prefab, positions[i], startLine.transform.rotation);
             ship.raceData = raceData;
             ship.nextControlPoint = firstControlPoint;
             ship.playerData = raceData.players[i];

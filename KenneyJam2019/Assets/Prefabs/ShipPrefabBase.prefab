@@ -44,9 +44,8 @@ GameObject:
   - component: {fileID: 8000613683493335519}
   - component: {fileID: 4384372980093739131}
   - component: {fileID: 3454920315622792841}
-  - component: {fileID: -3858244565981813780}
   m_Layer: 0
-  m_Name: ShipPrefab
+  m_Name: ShipPrefabBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,6 +84,7 @@ MonoBehaviour:
   nextControlPoint: {fileID: 0}
   playerData:
     name: 
+    color: {r: 0, g: 0, b: 0, a: 0}
     steerByAI: 0
 --- !u!114 &8000613683493335518
 MonoBehaviour:
@@ -168,24 +168,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &-3858244565981813780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8000613683493335514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3dda8ca64245e74eb3f106581e01acf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShipEntity: {fileID: 8000613683493335518}
-  RaceController: {fileID: 8000613683493335515}
-  CriticalDeltaAngleToBrake: 20
-  DistanceBeforeControlPointToBrake: 20
-  MinimalSpeedWithBrakingBeforeControlPoint: 4000
-  AngleTolerance: 1
 --- !u!1 &8000613684017937617
 GameObject:
   m_ObjectHideFlags: 0

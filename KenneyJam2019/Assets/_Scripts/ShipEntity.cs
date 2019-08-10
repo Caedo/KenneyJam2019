@@ -32,40 +32,6 @@ public class ShipEntity : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsPlayer && !IsOverturned())
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                MoveForward();
-                Debug.Log("Going forward");
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                Brake();
-            }
-
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-            {
-                CounterRightLeftRotation();
-            }
-
-            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-            {
-                CounterForwardBackRotation();
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                TurnLeft();
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                TurnRight();
-            }
-        }
-
         IsOverturned();
     }
 

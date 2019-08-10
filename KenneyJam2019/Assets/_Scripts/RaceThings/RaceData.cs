@@ -17,7 +17,7 @@ public class RaceData : ScriptableObject {
 
     public int PlayersCount => players.Count;
 
-    static readonly string[] names = { "Jack Spearow", "Var The Poor", "Kappa Warrior", "Nick The Temporary" };
+    static readonly string[] names = { "Jack Spearow", "Var The Poor", "Kappa Warrior", "Nick The Temporary", "Marian von CanMove" };
 
     public void CreateData(int npcNumber, PlayerData playerData) {
         players.Clear();
