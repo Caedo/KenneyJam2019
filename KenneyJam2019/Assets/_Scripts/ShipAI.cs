@@ -14,6 +14,8 @@ public class ShipAI : MonoBehaviour
     public float MinimalSpeedWithBrakingBeforeControlPoint;
     public int AngleTolerance;
 
+    private PowerUpsManager _powerUpsManager;
+
     private readonly Dictionary<int, float> _angleMultipliers = new Dictionary<int, float>
     {
         { int.MaxValue, 1f },
@@ -24,7 +26,7 @@ public class ShipAI : MonoBehaviour
 
     void Start()
     {
-        
+        _powerUpsManager = FindObjectOfType<PowerUpsManager>();
     }
 
     void FixedUpdate()

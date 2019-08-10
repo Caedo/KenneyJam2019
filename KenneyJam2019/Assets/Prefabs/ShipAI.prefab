@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShipEntity: {fileID: 8206893127328444951}
   RaceController: {fileID: 8206893127328444946}
+  PowerUpsManager: {fileID: 0}
   CriticalDeltaAngleToBrake: 20
   DistanceBeforeControlPointToBrake: 20
   MinimalSpeedWithBrakingBeforeControlPoint: 4000

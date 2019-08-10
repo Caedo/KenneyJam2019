@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
+using Random = System.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class ShipEntity : MonoBehaviour
@@ -18,9 +17,15 @@ public class ShipEntity : MonoBehaviour
     public int CriticalAngleToOverturn;
     public int CriticalAngleToNearOverturn;
 
+    public PowerUpData PowerUpReadyToLaunch;
+    public PowerUpData CurrentWorkingPowerUp;
+
     private Rigidbody _rigidbody;
     private bool _collisionDetected;
     private DateTime? _overturnedTimeStart;
+    private DateTime? _powerUpTimeStart;
+    private float _bonusForwardForce;
+    private PowerUpsManager _powerUpsManager;
 
     [HideInInspector]
     public float canMove = 1; // 0 as not, 1 as sail to the end of th world!
@@ -28,6 +33,7 @@ public class ShipEntity : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _powerUpsManager = FindObjectOfType<PowerUpsManager>();
     }
 
     void FixedUpdate()
@@ -40,6 +46,10 @@ public class ShipEntity : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             _collisionDetected = true;
+        }
+        else if (collision.gameObject.CompareTag("Chest"))
+        {
+            PowerUpReadyToLaunch = _powerUpsManager.GetRandom();
         }
     }
 
@@ -57,7 +67,7 @@ public class ShipEntity : MonoBehaviour
         {
             if (!IsShipCriticalAnglePassed())
             {
-                _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
+                _rigidbody.AddRelativeForce(Vector3.forward * -(ForwardForce + _bonusForwardForce) * canMove);
             }
             else
             {
@@ -151,5 +161,32 @@ public class ShipEntity : MonoBehaviour
     {
         return transform.localEulerAngles.z > CriticalAngleToNearOverturn &&
                transform.localEulerAngles.z < 360 - CriticalAngleToNearOverturn;
+    }
+
+    public void UsePowerUp()
+    {
+        if (PowerUpReadyToLaunch == null || CurrentWorkingPowerUp != null)
+        {
+            return;
+        }
+
+        CurrentWorkingPowerUp = PowerUpReadyToLaunch;
+        PowerUpReadyToLaunch = null;
+
+        switch (CurrentWorkingPowerUp.Type)
+        {
+            case PowerUpType.Acceleration:
+            {
+                _bonusForwardForce = 10000;
+                break;
+            }
+        }
+
+        _powerUpTimeStart = DateTime.Now;
+    }
+
+    private void StopPowerUp()
+    {
+        _bonusForwardForce = 0;
     }
 }

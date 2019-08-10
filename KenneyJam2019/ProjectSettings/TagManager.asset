@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - CameraTarget
+  - Chest
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - 
   - PostProcessing
   - Ground
-  - 
-  - 
+  - Ships
+  - Chests
   - 
   - 
   - 

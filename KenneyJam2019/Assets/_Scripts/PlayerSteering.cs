@@ -35,6 +35,11 @@ public class PlayerSteering : MonoBehaviour {
             if (Input.GetKey(KeyCode.D)) {
                 entity.TurnRight();
             }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                entity.UsePowerUp();
+            }
         }
     }
 }

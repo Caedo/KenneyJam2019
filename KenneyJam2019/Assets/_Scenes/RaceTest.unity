@@ -1949,6 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953e562618993874482b3ab5758a11fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChestSettings: {fileID: 11400000, guid: 41f6b209db896ad46ab19d493714957c, type: 2}
 --- !u!54 &263108650
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2787,6 +2788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953e562618993874482b3ab5758a11fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChestSettings: {fileID: 11400000, guid: 41f6b209db896ad46ab19d493714957c, type: 2}
 --- !u!54 &424254690
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6424,6 +6426,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_TagString
+      value: Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
       propertyPath: m_LocalPosition.x
       value: 771.1
@@ -6480,6 +6498,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
 --- !u!1 &962518562 stripped
@@ -6506,6 +6532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953e562618993874482b3ab5758a11fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChestSettings: {fileID: 11400000, guid: 41f6b209db896ad46ab19d493714957c, type: 2}
 --- !u!54 &962518567
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8171,6 +8198,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_TagString
+      value: Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
       propertyPath: m_LocalPosition.x
       value: 845
@@ -8225,6 +8268,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -8354,6 +8401,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_TagString
+      value: Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
       propertyPath: m_LocalPosition.x
       value: 637
@@ -8408,6 +8471,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10325,6 +10396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953e562618993874482b3ab5758a11fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChestSettings: {fileID: 11400000, guid: 41f6b209db896ad46ab19d493714957c, type: 2}
 --- !u!54 &1449324362
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12764,6 +12836,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_TagString
+      value: Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
       propertyPath: m_LocalPosition.x
       value: 745.8
@@ -12818,6 +12906,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 1f63e024663b36741a78c6da0543b771, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14471,6 +14563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2102745341}
+  - component: {fileID: 2102745342}
   m_Layer: 0
   m_Name: PowerUps
   m_TagString: Untagged
@@ -14496,6 +14589,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2102745342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102745340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55d19393f898e0498fe48d7d4e82cc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Chests:
+  - {fileID: 424254687}
+  - {fileID: 1449324359}
+  - {fileID: 962518564}
+  - {fileID: 263108647}
+  PowerUps:
+  - {fileID: 11400000, guid: e2867a7e2c8cffa498e8ffc540524743, type: 2}
 --- !u!1001 &2104816555
 PrefabInstance:
   m_ObjectHideFlags: 0
