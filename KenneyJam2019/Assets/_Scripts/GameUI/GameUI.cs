@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour {
 
@@ -125,6 +126,11 @@ public class GameUI : MonoBehaviour {
     public void ResumeGame() {
         TimeManager.ResumeTime();
         pausePanel.SetActive(false);
+    }
+
+    public void RestartRace() {
+        var currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 
     public void ExitToMenu() {
