@@ -29,6 +29,7 @@ public class GameUI : MonoBehaviour {
     [Header("End Game Panel")]
     public GameObject endGamePanel;
     public Text listOfShipsThatFinishedTeRaceText;
+    public Text youLostOrYouWinText;
 
     List<ShipRaceController> shipsThatFinishedTheRace = new List<ShipRaceController>();
 
@@ -145,6 +146,13 @@ public class GameUI : MonoBehaviour {
         for (int i = 0; i < shipsThatFinishedTheRace.Count; i++) {
             //@TODO: Add some time stamp
             builder.AppendFormat("{0}. {1}\n", i + 1, shipsThatFinishedTheRace[i].playerData.name);
+            if (shipsThatFinishedTheRace[0].playerData.steerByAI == false) {
+                youLostOrYouWinText.text = "You won";
+            }
+            else
+            {
+                youLostOrYouWinText.text = "You lost";
+            }
         }
         listOfShipsThatFinishedTeRaceText.text = builder.ToString();
 

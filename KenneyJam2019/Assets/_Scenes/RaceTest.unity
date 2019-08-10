@@ -9834,6 +9834,7 @@ MonoBehaviour:
   pausePanel: {fileID: 1056450043}
   endGamePanel: {fileID: 401536726}
   listOfShipsThatFinishedTeRaceText: {fileID: 2050167648}
+  youLostOrYouWinText: {fileID: 1020042104}
 --- !u!114 &1351047497
 MonoBehaviour:
   m_ObjectHideFlags: 0
