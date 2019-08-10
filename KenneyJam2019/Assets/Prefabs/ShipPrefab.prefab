@@ -82,6 +82,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raceData: {fileID: 0}
   nextControlPoint: {fileID: 0}
+  playerData:
+    name: 
+    steerByAI: 0
 --- !u!114 &8000613683493335518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,8 +101,12 @@ MonoBehaviour:
   BackwardForce: 1000
   RotationForce: 50000
   InclinationForce: 11000
-  AntiSinkRightLeftForce: 20000
+  AntiSinkRightLeftForce: 13000
   AntiSinkForwardBackForce: 15000
+  IsPlayer: 1
+  SecondsBeforeReset: 2
+  MaxSpeedToReset: 1
+  CriticalAngleToOverturn: 70
   canMove: 0
 --- !u!54 &8000613683493335519
 Rigidbody:
