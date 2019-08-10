@@ -8,6 +8,11 @@ public class StartLine : MonoBehaviour {
     public Vector3[] GetStartPositionsForPlayers(int playersCount) {
         var positions = new Vector3[playersCount];
 
+        if (playersCount == 1) {
+            positions[0] = transform.position;
+            return positions;
+        }
+
         var startPoint = transform.position + transform.right * startLineSize;
         var endPoint = transform.position - transform.right * startLineSize;
 

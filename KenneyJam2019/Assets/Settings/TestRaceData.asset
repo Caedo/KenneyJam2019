@@ -12,12 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f4442c4ea074a4fae7388dc856d724, type: 3}
   m_Name: TestRaceData
   m_EditorClassIdentifier: 
+  lapCount: 1
   players:
-  - name: 
-    steerByAI: 0
-  - name: 
-    steerByAI: 0
-  - name: 
-    steerByAI: 0
-  - name: 
+  - name: Captain Jack Spearow
     steerByAI: 0

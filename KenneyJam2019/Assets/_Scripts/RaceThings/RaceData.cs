@@ -10,6 +10,7 @@ public class Playerdata {
 
 [CreateAssetMenu]
 public class RaceData : ScriptableObject {
+    public int lapCount;
 
     public List<Playerdata> players;
 

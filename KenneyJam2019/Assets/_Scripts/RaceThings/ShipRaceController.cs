@@ -3,34 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShipRaceController : MonoBehaviour {
-    RaceControlPoint nextControllPoint;
+
+    public static System.Action<ShipRaceController> OnFinishedRace;
+    public RaceData raceData;
+
+    public RaceControlPoint nextControlPoint;
+
+    ShipEntity shipEntity;
 
     int crossedControlPointCount;
 
     bool canMove;
     bool raceStarted;
 
-    float raceTime;
+    int lapNumber;
+
+    void Awake() {
+        shipEntity = GetComponent<ShipEntity>();
+    }
 
     private void Start() {
         canMove = false;
-        raceStarted = false;
-    }
-
-    void Update() {
-        if (raceStarted) {
-            raceTime += Time.deltaTime;
-        }
+        shipEntity.canMove = 0;
     }
 
     public void RaceStart() {
         canMove = true;
-        raceStarted = true;
+        shipEntity.canMove = 1;
+    }
+
+    void OnTriggerEnter(Collider other) {
+        var controlPoint = other.GetComponentInParent<RaceControlPoint>();
+        if (controlPoint && controlPoint == nextControlPoint) {
+            nextControlPoint = controlPoint.nextPoint;
+            crossedControlPointCount++;
+
+            if (controlPoint.isEndPoint) {
+                lapNumber++;
+
+                if (raceData != null && lapNumber > raceData.lapCount) {
+                    FinishRace();
+                }
+            }
+        }
+    }
+
+    void FinishRace() {
+        OnFinishedRace?.Invoke(this);
+
+        shipEntity.canMove = 0;
     }
 
     public void CrossedControlPoint(RaceControlPoint point) {
         crossedControlPointCount++;
 
-        nextControllPoint = point.nextPoint;
+        nextControlPoint = point.nextPoint;
+    }
+
+    public(int, float) GetRaceDistanceTuble() {
+        var srqDist = Vector3.SqrMagnitude(transform.position - nextControlPoint.transform.position);
+
+        return (lapNumber, srqDist);
+    }
+
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        if (nextControlPoint)
+            Gizmos.DrawLine(transform.position, nextControlPoint.transform.position);
     }
 }

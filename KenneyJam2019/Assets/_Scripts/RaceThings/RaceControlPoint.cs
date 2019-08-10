@@ -6,13 +6,6 @@ public class RaceControlPoint : MonoBehaviour {
     public bool isEndPoint;
     public RaceControlPoint nextPoint;
 
-    void OnTriggerEnter(Collider other) {
-        var ship = other.GetComponent<ShipRaceController>();
-        if (ship) {
-            ship.CrossedControlPoint(this);
-        }
-    }
-
     void OnDrawGizmos() {
         Gizmos.color = Color.green;
 

@@ -14,6 +14,9 @@ public class ShipEntity : MonoBehaviour
     private Rigidbody _rigidbody;
     private bool _collisionDetected;
 
+    [HideInInspector]
+    public float canMove = 1; // 0 as not, 1 as sail to the end of th world!
+
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -25,28 +28,28 @@ public class ShipEntity : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce);
+                _rigidbody.AddRelativeForce(Vector3.forward * -ForwardForce * canMove);
             }
 
             if (Input.GetKey(KeyCode.S))
             {
                 if (_rigidbody.velocity.z < 0)
                 {
-                    _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce);
+                    _rigidbody.AddRelativeForce(Vector3.forward * BackwardForce * canMove);
                 }
             }
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            _rigidbody.AddRelativeTorque(0, -RotationForce, 0);
-            _rigidbody.AddRelativeTorque(0, 0, InclinationForce);
+            _rigidbody.AddRelativeTorque(0, -RotationForce * canMove, 0);
+            _rigidbody.AddRelativeTorque(0, 0, InclinationForce * canMove);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            _rigidbody.AddRelativeTorque(0, RotationForce, 0);
-            _rigidbody.AddRelativeTorque(0, 0, -InclinationForce);
+            _rigidbody.AddRelativeTorque(0, RotationForce * canMove, 0);
+            _rigidbody.AddRelativeTorque(0, 0, -InclinationForce * canMove);
         }
     }
 
