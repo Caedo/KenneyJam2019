@@ -48,7 +48,7 @@ public class RaceHighscores : MonoBehaviour
         {
             // We have player
             highscores.Add(new HighscoreEntry(raceManager.timeSinceRaceStarted, shipRaceController.playerData.name));
-            highscores.OrderBy(q => q.time);
+            highscores = highscores.OrderBy(q => q.time).ToList();
 
             // Cut to the best five
             while(highscores.Count > 5)
