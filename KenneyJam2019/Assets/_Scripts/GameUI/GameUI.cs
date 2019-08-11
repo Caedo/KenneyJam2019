@@ -34,6 +34,13 @@ public class GameUI : MonoBehaviour {
     public Text listOfShipsThatFinishedTeRaceText;
     public Text youLostOrYouWinText;
 
+    [Header("Highscores Panel")]
+    
+    public GameObject highscoresPanel;
+    public Text listOfTheBestHighscoresText;
+
+    RaceHighscores raceHighscores;
+
     List<ShipRaceController> shipsThatFinishedTheRace = new List<ShipRaceController>();
     List<float> raceTimeofShipsThatFinishedTheRace = new List<float>();
 
@@ -43,6 +50,7 @@ public class GameUI : MonoBehaviour {
 
     void Awake() {
         manager = FindObjectOfType<RaceManager>();
+        raceHighscores= FindObjectOfType<RaceHighscores>();
         stringBuilder = new StringBuilder();
 
         ShipRaceController.OnFinishedRace += OnShipFinishedRace;
@@ -156,6 +164,23 @@ public class GameUI : MonoBehaviour {
     public void ExitToMenu() {
         TimeManager.ResumeTime();
         UnityEngine.SceneManagement.SceneManager.LoadScene("Main menu");
+    }
+
+    public void GoToHighscores() {
+        List<HighscoreEntry> list = raceHighscores.highscores;
+        StringBuilder builder = new StringBuilder();
+        for(int i = 0; i < list.Count; i++)
+        {
+            builder.AppendFormat("{0}. {1} - {2:00.00} s\n", i + 1, list[i].name, list[i].time);
+        }
+        listOfTheBestHighscoresText.text = builder.ToString();
+        endGamePanel.SetActive(false);
+        highscoresPanel.SetActive(true);
+    }
+
+    public void BackFromHighscores() {
+        endGamePanel.SetActive(true);
+        highscoresPanel.SetActive(false);
     }
 
     public void OnShipFinishedRace(ShipRaceController ship) {
