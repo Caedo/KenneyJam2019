@@ -22,9 +22,9 @@ public class RaceControlPoint : MonoBehaviour {
     }
 
     void OnDrawGizmos() {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
 
         if (nextPoint != null)
-            Gizmos.DrawLine(transform.position, nextPoint.transform.position);
+            Gizmos.DrawLine(transform.position + Vector3.up * 5f, nextPoint.transform.position+ Vector3.up * 5f);
     }
 }
