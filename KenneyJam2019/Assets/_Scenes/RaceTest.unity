@@ -2841,6 +2841,11 @@ PrefabInstance:
       propertyPath: pointWidth
       value: 148
       objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6060,7 +6065,7 @@ PrefabInstance:
     - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
       propertyPath: isEndPoint
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
