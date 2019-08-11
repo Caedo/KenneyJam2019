@@ -97,7 +97,7 @@ PrefabInstance:
     - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
         type: 3}
       propertyPath: InclinationForce
-      value: 15000
+      value: 12500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adee07d2d2ab5e44dadfe1ddf94951ab, type: 3}

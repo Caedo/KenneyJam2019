@@ -163,6 +163,10 @@ public class ShipEntity : MonoBehaviour
 
             return true;
         }
+        else
+        {
+            _overturnedTimeStart = null;
+        }
 
         return false;
     }

@@ -19,11 +19,11 @@ public class PlayerSteering : MonoBehaviour {
                 entity.Brake();
             }
 
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) {
+            if ((!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)) || entity.CurrentWorkingPowerUp?.Type == PowerUpType.Stabilizer) {
                 entity.CounterRightLeftRotation();
             }
 
-            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S)) {
+            if ((!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S)) || entity.CurrentWorkingPowerUp?.Type == PowerUpType.Stabilizer) {
                 entity.CounterForwardBackRotation();
             }
 
