@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour {
 
     public RaceData raceData;
     [Header("Panels")]
+    public GameObject titlePanel;
     public GameObject mainMenuPanel;
     public GameObject gameSetupPanel;
     public GameObject highscoresPanel;
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        titlePanel.SetActive(true);
         mainMenuPanel.SetActive(true);
         gameSetupPanel.SetActive(false);
         highscoresPanel.SetActive(false);
@@ -67,6 +69,7 @@ public class UIManager : MonoBehaviour {
 
     public void SetupGame() {
         mainMenuPanel.SetActive(false);
+        titlePanel.SetActive(false);
         gameSetupPanel.SetActive(true);
         errorLabel.text = "";
 
@@ -75,6 +78,7 @@ public class UIManager : MonoBehaviour {
 
     public void ShowHighscores() {
         mainMenuPanel.SetActive(false);
+        titlePanel.SetActive(false);
         highscoresPanel.SetActive(true);
 
         SetHighscores();
@@ -84,6 +88,7 @@ public class UIManager : MonoBehaviour {
 
     public void ShowOptions() {
         mainMenuPanel.SetActive(false);
+        titlePanel.SetActive(false);
         optionsPanel.SetActive(true);
 
         target = optionsTransform;
@@ -91,6 +96,7 @@ public class UIManager : MonoBehaviour {
 
     public void ShowCredits() {
         mainMenuPanel.SetActive(false);
+        titlePanel.SetActive(false);
         creditsPanel.SetActive(true);
 
         target = creditsTransform;
@@ -139,6 +145,7 @@ public class UIManager : MonoBehaviour {
 
     public void BackFromGameSetup() {
         mainMenuPanel.SetActive(true);
+        titlePanel.SetActive(true);
         gameSetupPanel.SetActive(false);
 
         target = mainTransform;
@@ -162,7 +169,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void BackFromHighscores() {
-        mainMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(true);        
+        titlePanel.SetActive(true);
         highscoresPanel.SetActive(false);
 
         target = mainTransform;
@@ -175,7 +183,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void BackFromOptions() {
-        mainMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(true);        
+        titlePanel.SetActive(true);
         optionsPanel.SetActive(false);
 
         target = mainTransform;
@@ -184,7 +193,8 @@ public class UIManager : MonoBehaviour {
     // Credits
 
     public void BackFromCredits() {
-        mainMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(true);     
+        titlePanel.SetActive(true);
         creditsPanel.SetActive(false);
 
         target = mainTransform;
