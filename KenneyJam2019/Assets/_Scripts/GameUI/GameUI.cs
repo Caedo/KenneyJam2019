@@ -16,6 +16,8 @@ public class GameUI : MonoBehaviour {
     public Color PowerUpReadyColor;
     public Color PowerUpActiveColor;
 
+    public Text countdownText;
+
     public Text playersListText;
 
     [Header("Pause menu")]
@@ -109,6 +111,10 @@ public class GameUI : MonoBehaviour {
             PowerUpText.color = NoPowerUpColor;
             PowerUpTimeLeft.color = NoPowerUpColor;
             PowerUpTimeLeft.gameObject.SetActive(false);
+        }
+
+        if(manager.raceStarted == false) {
+            countdownText.text = string.Format("{0:0.000}", manager.countdownTimer);
         }
     }
 

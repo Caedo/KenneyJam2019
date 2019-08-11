@@ -23,12 +23,14 @@ public class RaceManager : MonoBehaviour {
 
     List<ShipRaceController> shipsThatFinishedTheRace = new List<ShipRaceController>();
 
-    float countdownTimer;
+    [HideInInspector]
+    public float countdownTimer;
 
     public ShipRaceController playerShip { get; private set; }
     public float timeSinceRaceStarted { get; private set; }
 
-    bool raceStarted;
+    [HideInInspector]
+    public bool raceStarted;
 
     void Awake() {
         int playersCount = raceData.PlayersCount;

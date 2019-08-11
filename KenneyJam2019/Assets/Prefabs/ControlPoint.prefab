@@ -42,7 +42,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 18.91, y: 12.49, z: 2.41}
+  m_Size: {x: 37.4, y: 12.49, z: 2.41}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4976595264070250571
 GameObject:
@@ -92,6 +92,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEndPoint: 0
   nextPoint: {fileID: 0}
+  pointWidth: 37.4
+  leftFlag: {fileID: 4486316512383518966}
+  rightFlag: {fileID: 1463514998061206705}
+  trigger: {fileID: 1728236750}
 --- !u!64 &667840532
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -135,12 +139,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 373ded11e8a398b49973c9b587df736d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: 18.7
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 373ded11e8a398b49973c9b587df736d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.09999999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 373ded11e8a398b49973c9b587df736d,
         type: 3}
@@ -216,17 +220,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 373ded11e8a398b49973c9b587df736d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7
+      value: -18.7
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 373ded11e8a398b49973c9b587df736d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.09999999
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 373ded11e8a398b49973c9b587df736d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 373ded11e8a398b49973c9b587df736d,
         type: 3}
