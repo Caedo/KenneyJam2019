@@ -52,7 +52,8 @@ public class GameUI : MonoBehaviour {
     }
 
     void Update() {
-        lapText.text = $"Lap: {playerShip.GetLap()}/{lapsCount}";
+        int laps = Mathf.Clamp(playerShip.GetLap(), 0, manager.raceData.lapCount);
+        lapText.text = $"Lap: {laps}/{lapsCount}";
         var minutes = (int) (manager.timeSinceRaceStarted / 60);
         var seconds = Mathf.RoundToInt(manager.timeSinceRaceStarted - minutes * 60);
 
