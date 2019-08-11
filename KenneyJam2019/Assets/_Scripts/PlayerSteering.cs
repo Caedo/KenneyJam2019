@@ -13,7 +13,6 @@ public class PlayerSteering : MonoBehaviour {
         if (!entity.IsOverturned()) {
             if (Input.GetKey(KeyCode.W)) {
                 entity.MoveForward();
-                Debug.Log("Going forward");
             }
 
             if (Input.GetKey(KeyCode.S)) {
