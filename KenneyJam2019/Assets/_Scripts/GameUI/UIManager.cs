@@ -23,10 +23,13 @@ public class UIManager : MonoBehaviour {
     public Dropdown colorDropdown;
     public Text numberOfLapsValueLabel;
     public Slider lapsSlider;
+    public Text errorLabel;
+
+    [Header("Options Panel")]
     public AudioMixer mixer;
 
 [   Header("Highscores Panel")]
-    public Text highscoresEntriesLabel;   
+    public Text highscoresEntriesLabel;
 
     [Header("Transform targets")]
     public Camera mainCamera;
@@ -49,6 +52,7 @@ public class UIManager : MonoBehaviour {
         optionsPanel.SetActive(false);
         creditsPanel.SetActive(false);
         Time.timeScale = 1;
+        errorLabel.text = "";
 
         target = mainTransform;
     }
@@ -64,6 +68,7 @@ public class UIManager : MonoBehaviour {
     public void SetupGame() {
         mainMenuPanel.SetActive(false);
         gameSetupPanel.SetActive(true);
+        errorLabel.text = "";
 
         target = startTransform;
     }
@@ -110,19 +115,26 @@ public class UIManager : MonoBehaviour {
     }
 
     public void StartGame() {
-        string color = colorDropdown.options[colorDropdown.value].text;
-        Color playerColor = ColorDictionary[color];
+        if(nameField.text == "")
+        {
+            errorLabel.text = "ye must be tellin' us yer name ";
+        }
+        else
+        {
+            string color = colorDropdown.options[colorDropdown.value].text;
+            Color playerColor = ColorDictionary[color];
 
-        PlayerData playerData = new PlayerData() {
-            name = nameField.text,
-            steerByAI = false,
-            color = playerColor,
-        };
-        raceData.lapCount = (int) lapsSlider.value;
+            PlayerData playerData = new PlayerData() {
+                name = nameField.text,
+                steerByAI = false,
+                color = playerColor,
+            };
+            raceData.lapCount = (int) lapsSlider.value;
 
-        raceData.CreateData((int) npcSlider.value, playerData);
+            raceData.CreateData((int) npcSlider.value, playerData);
 
-        SceneManager.LoadScene("RaceTest");
+            SceneManager.LoadScene("RaceTest");
+        }
     }
 
     public void BackFromGameSetup() {
