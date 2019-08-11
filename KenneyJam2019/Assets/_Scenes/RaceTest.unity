@@ -4343,6 +4343,11 @@ PrefabInstance:
       propertyPath: pointWidth
       value: 150.9
       objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4945,6 +4950,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pointWidth
       value: 99.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
@@ -5699,6 +5709,11 @@ PrefabInstance:
       propertyPath: pointWidth
       value: 86.8
       objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6045,7 +6060,7 @@ PrefabInstance:
     - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
       propertyPath: isEndPoint
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
@@ -8005,6 +8020,11 @@ PrefabInstance:
       propertyPath: pointWidth
       value: 133.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8305,6 +8325,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pointWidth
       value: 84.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
@@ -8980,6 +9005,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pointWidth
       value: 176.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
@@ -10418,6 +10448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pointWidth
       value: 174
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
@@ -12784,6 +12819,11 @@ PrefabInstance:
       propertyPath: pointWidth
       value: 112.8
       objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13001,6 +13041,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pointWidth
       value: 93.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
@@ -13768,6 +13813,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pointWidth
       value: 129.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056944054199128389, guid: 0b3655710eecadc4082f4fdb06e6d82c,
+        type: 3}
+      propertyPath: isEndPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519064719307472042, guid: 0b3655710eecadc4082f4fdb06e6d82c,
         type: 3}
