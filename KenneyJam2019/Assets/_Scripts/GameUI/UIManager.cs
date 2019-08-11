@@ -178,8 +178,12 @@ public class UIManager : MonoBehaviour {
 
     // Options
 
-    public void SetLevel(float sliderValue) {
+    public void SetLevelMusicVolume(float sliderValue) {
         mixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
+    }
+
+    public void SetLevelEffectsVolume(float sliderValue) {
+        mixer.SetFloat("EffectsVolume", Mathf.Log10(sliderValue) * 20);
     }
 
     public void BackFromOptions() {
