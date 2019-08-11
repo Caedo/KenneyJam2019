@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShipParticleController : MonoBehaviour {
     public ParticleSystem dustParicles;
     public ParticleSystem windParticles;
+    public ParticleSystem rotationParticles;
+    public ParticleSystem stabilityParticles;
 
     ShipEntity entity;
 
@@ -28,6 +30,12 @@ public class ShipParticleController : MonoBehaviour {
             case PowerUpType.Acceleration:
                 windParticles.Play();
                 break;
+            case PowerUpType.Rotation:
+                rotationParticles.Play();
+                break;
+            case PowerUpType.Stabilizer:
+                stabilityParticles.Play();
+                break;
         }
     }
 
@@ -35,6 +43,12 @@ public class ShipParticleController : MonoBehaviour {
         switch (powerUp.Type) {
             case PowerUpType.Acceleration:
                 windParticles.Stop();
+                break;
+            case PowerUpType.Rotation:
+                rotationParticles.Stop();
+                break;
+            case PowerUpType.Stabilizer:
+                stabilityParticles.Stop();
                 break;
         }
     }
