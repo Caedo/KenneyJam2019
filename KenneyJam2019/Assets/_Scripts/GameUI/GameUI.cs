@@ -34,6 +34,7 @@ public class GameUI : MonoBehaviour {
     public Text youLostOrYouWinText;
 
     List<ShipRaceController> shipsThatFinishedTheRace = new List<ShipRaceController>();
+    List<float> raceTimeofShipsThatFinishedTheRace = new List<float>();
 
     int lapsCount;
 
@@ -148,11 +149,12 @@ public class GameUI : MonoBehaviour {
 
     public void OnShipFinishedRace(ShipRaceController ship) {
         shipsThatFinishedTheRace.Add(ship);
+        raceTimeofShipsThatFinishedTheRace.Add(manager.timeSinceRaceStarted);
 
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < shipsThatFinishedTheRace.Count; i++) {
             //@TODO: Add some time stamp
-            builder.AppendFormat("{0}. {1}\n", i + 1, shipsThatFinishedTheRace[i].playerData.name);
+            builder.AppendFormat("{0}. {1} - {2:00.00} s\n", i + 1, shipsThatFinishedTheRace[i].playerData.name, raceTimeofShipsThatFinishedTheRace[i]);
             if (shipsThatFinishedTheRace[0].playerData.steerByAI == false) {
                 youLostOrYouWinText.text = "You won";
             }
