@@ -11,12 +11,16 @@ public class ChestEntity : MonoBehaviour
     private Collider _collider;
     private Renderer _lidRenderer;
 
+    ParticleSystem _particles;
+
     // Start is called before the first frame update
     void Start()
     {
         _renderer = GetComponent<Renderer>();
         _collider = GetComponent<Collider>();
         _lidRenderer = transform.Find("lid").GetComponent<Renderer>();
+
+        _particles = GetComponentInChildren<ParticleSystem>();
 
         SetChestStatus(false);
     }
@@ -46,5 +50,7 @@ public class ChestEntity : MonoBehaviour
         _renderer.enabled = status;
         _collider.enabled = status;
         _lidRenderer.enabled = status;
+
+        _particles.gameObject.SetActive(status);
     }
 }
