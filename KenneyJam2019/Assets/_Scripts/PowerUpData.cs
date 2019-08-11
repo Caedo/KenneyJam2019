@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public enum PowerUpType
 {
     None,
-    Acceleration
+    Acceleration,
+    Stabilizer,
+    Rotation
 }
 
 [CreateAssetMenu]

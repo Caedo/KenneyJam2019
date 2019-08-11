@@ -20,11 +20,17 @@ public class ShipEntity : MonoBehaviour
     public PowerUpData PowerUpReadyToLaunch;
     public PowerUpData CurrentWorkingPowerUp;
 
+    public float ForwardForceBonus;
+    public float AntiSinkForceBonus;
+    public float RotationForceBonus;
+
     private Rigidbody _rigidbody;
     private bool _collisionDetected;
     private DateTime? _overturnedTimeStart;
     private DateTime? _powerUpTimeStart;
     private float _bonusForwardForce;
+    private float _bonusAntiSinkForce;
+    private float _bonusRotationForce;
     private PowerUpsManager _powerUpsManager;
 
     [HideInInspector]
@@ -108,7 +114,7 @@ public class ShipEntity : MonoBehaviour
         if (!IsShipCriticalAnglePassed())
         {
             _rigidbody.AddRelativeTorque(0, RotationForce * canMove, 0);
-            _rigidbody.AddRelativeTorque(0, 0, -InclinationForce * canMove);
+            _rigidbody.AddRelativeTorque(0, 0, -(InclinationForce - _bonusRotationForce) * canMove);
         }
     }
 
@@ -117,7 +123,7 @@ public class ShipEntity : MonoBehaviour
         if (!IsShipCriticalAnglePassed())
         {
             _rigidbody.AddRelativeTorque(0, -RotationForce * canMove, 0);
-            _rigidbody.AddRelativeTorque(0, 0, InclinationForce * canMove);
+            _rigidbody.AddRelativeTorque(0, 0, (InclinationForce - _bonusRotationForce) * canMove);
         }
     }
 
@@ -126,7 +132,7 @@ public class ShipEntity : MonoBehaviour
         if (transform.localEulerAngles.z > 10 && transform.localEulerAngles.z < 350)
         {
             var add = transform.localEulerAngles.z < 180;
-            _rigidbody.AddRelativeTorque(0, 0, AntiSinkRightLeftForce * canMove * (add ? -1 : 1));
+            _rigidbody.AddRelativeTorque(0, 0, (AntiSinkRightLeftForce + _bonusAntiSinkForce) * canMove * (add ? -1 : 1));
         }
     }
 
@@ -135,7 +141,7 @@ public class ShipEntity : MonoBehaviour
         if (transform.localEulerAngles.x > 10 && transform.localEulerAngles.x < 350)
         {
             var add = transform.localEulerAngles.x < 180;
-            _rigidbody.AddRelativeTorque(AntiSinkForwardBackForce * canMove * (add ? -1 : 1), 0, 0);
+            _rigidbody.AddRelativeTorque((AntiSinkForwardBackForce + _bonusAntiSinkForce) * canMove * (add ? -1 : 1), 0, 0);
         }
     }
 
@@ -195,7 +201,19 @@ public class ShipEntity : MonoBehaviour
         {
             case PowerUpType.Acceleration:
             {
-                _bonusForwardForce = 2000;
+                _bonusForwardForce = ForwardForceBonus;
+                break;
+            }
+
+            case PowerUpType.Stabilizer:
+            {
+                _bonusAntiSinkForce = AntiSinkForceBonus;
+                break;
+            }
+
+            case PowerUpType.Rotation:
+            {
+                _bonusRotationForce = RotationForceBonus;
                 break;
             }
         }
@@ -216,6 +234,8 @@ public class ShipEntity : MonoBehaviour
     private void StopPowerUp()
     {
         _bonusForwardForce = 0;
+        _bonusAntiSinkForce = 0;
+        _bonusRotationForce = 0;
         CurrentWorkingPowerUp = null;
     }
 }

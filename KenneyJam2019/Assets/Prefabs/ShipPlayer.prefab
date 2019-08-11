@@ -79,6 +79,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: ForwardForceBonus
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: AntiSinkForceBonus
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: RotationForceBonus
+      value: 20000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adee07d2d2ab5e44dadfe1ddf94951ab, type: 3}
 --- !u!1 &6708481944777016486 stripped

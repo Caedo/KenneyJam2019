@@ -16,11 +16,11 @@ MonoBehaviour:
   RaceController: {fileID: 8206893127328444946}
   CriticalDeltaAngleToBrake: 20
   DistanceBeforeControlPointToBrake: 20
-  MinimalSpeedWithBrakingBeforeControlPoint: 4000
+  MinimalSpeedWithBrakingBeforeControlPoint: 2000
   AngleTolerance: 1
   EdgeDistanceToChest: 500
-  EdgeAngleToChest: 15
-  MaxDifferenceBetweenDeltaAngles: 15
+  EdgeAngleToChest: 30
+  MaxDifferenceBetweenDeltaAngles: 30
   AngleMultipliers:
   - Distance: 99999999
     Angle: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
   - Distance: 100
     Angle: 2
   - Distance: 0
-    Angle: 2
+    Angle: 3
 --- !u!1001 &2225726066645681097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,12 +115,27 @@ PrefabInstance:
     - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
         type: 3}
       propertyPath: ForwardForce
-      value: 10000
+      value: 8000
       objectReference: {fileID: 0}
     - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
         type: 3}
       propertyPath: BackwardForce
       value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: ForwardForceBonus
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: AntiSinkForceBonus
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8000613683493335518, guid: adee07d2d2ab5e44dadfe1ddf94951ab,
+        type: 3}
+      propertyPath: RotationForceBonus
+      value: 20000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adee07d2d2ab5e44dadfe1ddf94951ab, type: 3}

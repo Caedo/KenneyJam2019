@@ -73,21 +73,17 @@ public class ShipAI : MonoBehaviour
             var angle = Mathf.Atan2(vectorToTarget.x, vectorToTarget.z) * Mathf.Rad2Deg;
             var deltaAngle = Mathf.DeltaAngle(angle, transform.eulerAngles.y - 180);
 
-            int test = 90;
-            Debug.Log(deltaAngle);
-            if (deltaAngle > -test && deltaAngle < test)
+            if (deltaAngle > -90 && deltaAngle < 90)
             {
                 _shipToOmitDir = Dir.Down;
             }
-            else if (deltaAngle < -test)
+            else if (deltaAngle < -90)
             {
                 _shipToOmitDir = Dir.Right;
-                Debug.Log("Omit right");
             }
-            else if(deltaAngle > test)
+            else if(deltaAngle > 90)
             {
                 _shipToOmitDir = Dir.Left;
-                Debug.Log("Omit left");
             }
         }
     }
@@ -184,6 +180,7 @@ public class ShipAI : MonoBehaviour
                     ShipEntity.TurnLeft();
                 }
 
+                Debug.Log("XXX");
                 return true;
             }
         }
@@ -198,6 +195,8 @@ public class ShipAI : MonoBehaviour
             switch (ShipEntity.PowerUpReadyToLaunch.Type)
             {
                 case PowerUpType.Acceleration:
+                case PowerUpType.Stabilizer:
+                case PowerUpType.Rotation:
                 {
                     ShipEntity.UsePowerUp();
                     break;

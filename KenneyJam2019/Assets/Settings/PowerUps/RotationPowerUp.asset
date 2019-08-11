@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f114cdf4390d7e4680f460a6a563a38, type: 3}
-  m_Name: ChestSettings
+  m_Script: {fileID: 11500000, guid: 8cbe49b1237ef7d4d875f43fc578455b, type: 3}
+  m_Name: RotationPowerUp
   m_EditorClassIdentifier: 
-  ChanceForRespawn: 0.0005
+  Type: 3
+  Name: Rotation
+  Time: 5
