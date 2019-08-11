@@ -11,6 +11,7 @@ public class GameUI : MonoBehaviour {
     public Text timeText;
     public Text PowerUpText;
     public Text PowerUpTimeLeft;
+    public Text ResetCooldownText;
 
     public Color NoPowerUpColor;
     public Color PowerUpReadyColor;
@@ -125,6 +126,16 @@ public class GameUI : MonoBehaviour {
 
         if(manager.raceStarted == false) {
             countdownText.text = string.Format("{0:0.000}", manager.countdownTimer);
+        }
+
+        if (playerShip.shipEntity.IsOverturned())
+        {
+            ResetCooldownText.enabled = true;
+            ResetCooldownText.text = $"{playerShip.shipEntity.GetTimeToReset():0.0} TO RESET";
+        }
+        else
+        {
+            ResetCooldownText.enabled = false;
         }
     }
 
