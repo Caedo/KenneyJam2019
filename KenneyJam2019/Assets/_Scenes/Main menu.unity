@@ -7627,21 +7627,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Assets & Audio Effects:
-
-    Kenney
-
-
-    Music:
-
-    Menu: Juhani Junkala - JRPG Trailer / Theme
-
-    In-Game: Matthew Pablo - Blackmoor Tides
-
-
-    Game Creators:
-
-    Coedo (Caedo), Tearth, Azux Dario'
+  m_Text: "Assets & Audio Effects:\n  Kenney\n    CC0 1.0 Universal\n\nMusic:\n  Menu:
+    Juhani Junkala - JRPG Trailer / Theme\n    CC0\n  In-Game: Matthew Pablo - Blackmoor
+    Tides\n    CC-BY 3.0\n\nGame Creators:\n  Coedo (Caedo), Tearth, Azux Dario"
 --- !u!222 &1986654556
 CanvasRenderer:
   m_ObjectHideFlags: 0
