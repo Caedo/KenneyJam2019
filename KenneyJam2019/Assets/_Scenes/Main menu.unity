@@ -4903,7 +4903,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This game has been made in the name of the holy duck.
+  m_Text: This game was done entirely in 48H for KenneyJam 2019
 --- !u!222 &1189108848
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8711,7 +8711,7 @@ MonoBehaviour:
     m_Bits: 256
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
