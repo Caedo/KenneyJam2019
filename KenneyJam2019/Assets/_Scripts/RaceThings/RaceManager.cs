@@ -7,6 +7,7 @@ public class RaceManager : MonoBehaviour {
     public RaceData raceData;
     public ShipRaceController playerShipPrefab;
     public ShipRaceController AIShipPrefab;
+    public ControlPointArrowEntity ArrowEntity;
 
     [Header("Start Race Things")]
     public StartLine startLine;
@@ -51,6 +52,8 @@ public class RaceManager : MonoBehaviour {
 
             if (raceData.players[i].steerByAI == false) {
                 camera.CameraTarget = ship.transform.Find("CameraTarget").gameObject;
+                ArrowEntity.Entity = ship.shipEntity;
+                ArrowEntity.RaceManager = ship;
                 playerShip = ship;
             }
 
