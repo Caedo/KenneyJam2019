@@ -231,6 +231,16 @@ public class ShipEntity : MonoBehaviour
         return (_powerUpTimeStart.Value.AddSeconds(CurrentWorkingPowerUp.Time) - DateTime.Now).TotalSeconds;
     }
 
+    public double GetTimeToReset()
+    {
+        if (_overturnedTimeStart != null)
+        {
+            return (_overturnedTimeStart.Value - DateTime.Now).TotalSeconds + SecondsBeforeReset;
+        }
+
+        return 0;
+    }
+
     private void StopPowerUp()
     {
         _bonusForwardForce = 0;

@@ -9,7 +9,7 @@ public class PlayerSteering : MonoBehaviour {
         entity = GetComponent<ShipEntity>();
     }
 
-    void Update() {
+    void FixedUpdate() {
         if (!entity.IsOverturned()) {
             if (Input.GetKey(KeyCode.W)) {
                 entity.MoveForward();
