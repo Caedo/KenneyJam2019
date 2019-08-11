@@ -80,7 +80,7 @@ public class RaceManager : MonoBehaviour {
             if (aLaps == bLaps) {
                 return (aDist < bDist) ? -1 : 1;
             } else {
-                return (aLaps < bLaps) ? -1 : 1;
+                return (aLaps < bLaps) ? 1 : -1;
             }
         });
 

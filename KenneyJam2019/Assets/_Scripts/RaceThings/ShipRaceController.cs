@@ -74,7 +74,7 @@ public class ShipRaceController : MonoBehaviour {
     public(int, float) GetRaceDistanceTuple() {
         var srqDist = Vector3.SqrMagnitude(transform.position - nextControlPoint.transform.position);
 
-        return (lapNumber, srqDist);
+        return (crossedControlPointCount, srqDist);
     }
 
     public int GetLap() {

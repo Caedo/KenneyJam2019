@@ -24,6 +24,11 @@ public class ShipEntity : MonoBehaviour
     public float AntiSinkForceBonus;
     public float RotationForceBonus;
 
+    public AudioClip ChestCollisionSound;
+    public AudioClip PowerUpEnabledSound;
+    public AudioClip PowerUpDisabledSound;
+    public AudioClip OverturnSound;
+
     private Rigidbody _rigidbody;
     private bool _collisionDetected;
     private DateTime? _overturnedTimeStart;
@@ -71,6 +76,13 @@ public class ShipEntity : MonoBehaviour
             else if (PowerUpReadyToLaunch == null)
             {
                 PowerUpReadyToLaunch = _powerUpsManager.GetRandom();
+            }
+
+            var audio = GetComponent<AudioSource>();
+            if (ChestCollisionSound != null)
+            {
+                audio.clip = ChestCollisionSound;
+                audio.Play();
             }
         }
     }
@@ -175,6 +187,13 @@ public class ShipEntity : MonoBehaviour
     {
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         _overturnedTimeStart = null;
+
+        var audio = GetComponent<AudioSource>();
+        if (ChestCollisionSound != null)
+        {
+            audio.clip = OverturnSound;
+            audio.Play();
+        }
     }
 
     private bool IsShipCriticalAnglePassed()
@@ -222,6 +241,13 @@ public class ShipEntity : MonoBehaviour
             }
         }
 
+        var audio = GetComponent<AudioSource>();
+        if (ChestCollisionSound != null)
+        {
+            audio.clip = PowerUpEnabledSound;
+            audio.Play();
+        }
+
         _powerUpTimeStart = DateTime.Now;
     }
 
@@ -251,5 +277,12 @@ public class ShipEntity : MonoBehaviour
         _bonusAntiSinkForce = 0;
         _bonusRotationForce = 0;
         CurrentWorkingPowerUp = null;
+
+        var audio = GetComponent<AudioSource>();
+        if (ChestCollisionSound != null)
+        {
+            audio.clip = PowerUpDisabledSound;
+            audio.Play();
+        }
     }
 }
