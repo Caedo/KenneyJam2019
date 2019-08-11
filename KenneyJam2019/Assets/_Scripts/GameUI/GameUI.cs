@@ -56,6 +56,10 @@ public class GameUI : MonoBehaviour {
         ShipRaceController.OnFinishedRace += OnShipFinishedRace;
     }
 
+    void OnDestroy() {
+        ShipRaceController.OnFinishedRace -= OnShipFinishedRace;
+    }
+
     private void Start() {
         playerShip = manager.playerShip;
         lapsCount = manager.GetLapsCount();
