@@ -41,9 +41,9 @@ public class ShipAI : MonoBehaviour
         _powerUpsManager = FindObjectOfType<PowerUpsManager>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // Project meme
+        // Project meme x2
         if (Math.Abs(ShipEntity.canMove) < 0.1)
         {
             return;
